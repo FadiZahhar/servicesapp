@@ -1,6 +1,7 @@
 # servicesapp
 Agile Services Recharge Payment
-Developing your web application using Firebase services offers several advantages, such as ease of use, scalability, and integration of various functionalities without the need to manage backend infrastructure. Here’s how you can approach the development using Firebase:
+
+Developing a web application using Firebase services offers several advantages, such as ease of use, scalability, and integration of various functionalities without the need to manage backend infrastructure. Here’s how you can approach the development using Firebase:
 
 1. **User Interface (UI) Design:**
    - Create a user-friendly landing page showcasing the package services: Basic, Standard, and Premium.
