@@ -103,3 +103,17 @@ Developing a web application using Firebase services offers several advantages, 
 6. **Maintenance:** Monitor the app, analyze usage metrics, and regularly update the codebase and Firebase configurations.
 
 By leveraging Firebase’s suite of tools, you can build a scalable, efficient, and secure web application with a focus on real-time updates and ease of management.
+
+example of the expected app Ux/UI
+![Example 1](https://github.com/FadiZahhar/servicesapp/assets/8089881/7f416452-de20-40e0-8419-5755fc5ce7b5)
+
+![Example 2](https://github.com/FadiZahhar/servicesapp/assets/8089881/237137f0-ab73-4aaa-a148-8abf248e82ac)
+
+![Widgets](https://github.com/FadiZahhar/servicesapp/assets/8089881/98ab5b0f-797a-47a2-be6e-a98527af1e46)
+
+![Tables](https://github.com/FadiZahhar/servicesapp/assets/8089881/c2913efb-47cc-4bed-95f4-28d47861838f)
+
+![Charts](https://github.com/FadiZahhar/servicesapp/assets/8089881/45d98e57-399f-4ede-b378-052508a7b863)
+
+you can find the Adobe XD Design for the expected app on public/resources folder
+
