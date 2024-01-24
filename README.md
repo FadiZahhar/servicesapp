@@ -1,3 +1,8 @@
+# Introduction to the open source project
+
+[![services app](https://videoapi-muybridge.vimeocdn.com/animated-thumbnails/image/f7aa6e48-9ab8-4515-a1a4-cc2133743182.gif?ClientID=vimeo-core-prod&Date=1706116148&Signature=3104f414d60e967b711c75dcaacee910fc00552c)](https://vimeo.com/906047438)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
