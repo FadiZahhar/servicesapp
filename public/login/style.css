@@ -98,6 +98,11 @@ form .row input::placeholder{
 }
 form .button input:hover{
   background: #000000;
+  border: 1px solid #16a085;
+  cursor: pointer;
+}
+form .button input:hover{
+  background: #12876f;
 }
 .wrapper form .signup-link{
   text-align: center;
@@ -105,7 +110,8 @@ form .button input:hover{
   font-size: 17px;
 }
 .wrapper form .signup-link a{
-  color: #260ead;
+  color: #000000;
+  color: #16a085;
   text-decoration: none;
 }
 /* Style for the label */
