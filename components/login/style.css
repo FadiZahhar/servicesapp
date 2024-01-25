@@ -7,20 +7,17 @@
 }
 body{
   background: #cecfcf;
+  background: #1abc9c;
   overflow: hidden;
 }
 ::selection{
   background: rgba(26,188,156,0.3);
 }
 .container{
-  max-width: 500px;
-  padding: 0 20px; /* Add some padding */
-  position: absolute; /* Positioning it absolutely */
-  top: 50%; /* Move 50% from the top of the screen */
-  left: 50%; /* Move 50% from the left of the screen */
-  transform: translate(-50%, -50%); /* Adjust the position correctly */
+  max-width: 440px;
+  padding: 0 20px;
+  margin: 170px auto;
 }
-
 .wrapper{
   width: 100%;
   background: #fff;
@@ -30,6 +27,7 @@ body{
 .wrapper .title{
   height: 90px;
   background: #000000;
+  background: #16a085;
   border-radius: 5px 5px 0 0;
   color: #fff;
   font-size: 30px;
@@ -69,8 +67,8 @@ form .row input::placeholder{
   height: 100%;
   color: #fff;
   font-size: 18px;
-  background: #000000;
-  border: 1px solid #000000;
+  background: #16a085;
+  border: 1px solid #16a085;
   border-radius: 5px 0 0 5px;
   display: flex;
   align-items: center;
@@ -98,6 +96,7 @@ form .row input::placeholder{
 }
 form .button input:hover{
   background: #000000;
+  background: #16a085;
   border: 1px solid #16a085;
   cursor: pointer;
 }
@@ -111,39 +110,8 @@ form .button input:hover{
 }
 .wrapper form .signup-link a{
   color: #000000;
-  color: #16a085;
   text-decoration: none;
 }
-/* Style for the label */
-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #000000; /* Adjust the color as per your theme */
-  font-size: 17px; /* Adjust the font size as needed */
-}
-
-/* Style for the select box */
-select {
-  width: 100%; /* Full width */
-  padding: 10px 15px; /* Padding inside the select box */
-  margin-bottom: 15px; /* Margin at the bottom */
-  border-radius: 5px; /* Rounded corners */
-  border: 1px solid lightgrey; /* Border color */
-  font-size: 16px; /* Font size */
-  -webkit-appearance: none; /* Removes default styling for select in some browsers */
-  -moz-appearance: none; /* Removes default styling for select in some browsers */
-  appearance: none; /* Removes default styling for select in some browsers */
-  background: url('path-to-down-arrow-image') no-repeat right; /* Optional: add a custom arrow icon */
-  background-color: #fff; /* Background color */
-  color: #000; /* Text color */
-}
-
-/* Style for options */
-option {
-  padding: 10px; /* Padding for options */
-}
-
-/* Add more specific styles if needed */
 
 form .signup-link a:hover{
   text-decoration: underline;
