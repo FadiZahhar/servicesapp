@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Login Form | CodingLab</title> 
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Sign Up</span></div>
+        <form action="#" id="registrationForm">
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="email" placeholder="Email " id="email" required>
+          </div>
+          <script>
+          let regex = new RegExp('[a-z0-9]+@gmail.com');
+
+let email = document.getElementById('email').value;
+
+email.forEach((address) => {
+    console.log(regex.test(address))
+});
+
+          </script>
+          <div class="row">
+            <i class="fas fa-phone"></i>
+            <input type="tel" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9{4}"  id="phone" required>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" id="pass" required>
+          </div>
+          <div class="pass"><a href="change.html">Forgot password?</a></div>
+          <div class="row button">
+            <input type="submit" value="Login">
+          </div>
+          <div class="signup-link">Not a member? <a href="signup.html">Signup now</a></div>
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>
+<script>
+    document.getElementById('registrationForm').onsubmit = async function(e) {
+        e.preventDefault();
+        let email = document.getElementById('email').value;
+        let pass =document.getElementById('pass').value;
+        let phone=document.getElementById('phone').value;
+        let response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email }),
+            body: JSON.stringify({ pass: pass }), 
+            body: JSON.stringify({ phone: phone }), 
+        });
+        
+        let data = await response.json();
+        // Handle the response from your server
+    };
+</script>
