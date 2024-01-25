@@ -105,9 +105,40 @@ form .button input:hover{
   font-size: 17px;
 }
 .wrapper form .signup-link a{
-  color: #000000;
+  color: #260ead;
   text-decoration: none;
 }
+/* Style for the label */
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #000000; /* Adjust the color as per your theme */
+  font-size: 17px; /* Adjust the font size as needed */
+}
+
+/* Style for the select box */
+select {
+  width: 100%; /* Full width */
+  padding: 10px 15px; /* Padding inside the select box */
+  margin-bottom: 15px; /* Margin at the bottom */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid lightgrey; /* Border color */
+  font-size: 16px; /* Font size */
+  -webkit-appearance: none; /* Removes default styling for select in some browsers */
+  -moz-appearance: none; /* Removes default styling for select in some browsers */
+  appearance: none; /* Removes default styling for select in some browsers */
+  background: url('path-to-down-arrow-image') no-repeat right; /* Optional: add a custom arrow icon */
+  background-color: #fff; /* Background color */
+  color: #000; /* Text color */
+}
+
+/* Style for options */
+option {
+  padding: 10px; /* Padding for options */
+}
+
+/* Add more specific styles if needed */
+
 form .signup-link a:hover{
   text-decoration: underline;
 }
