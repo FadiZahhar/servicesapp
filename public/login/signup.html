@@ -1,82 +1,84 @@
 <!DOCTYPE html>
-
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Login Form | CodingLab</title> 
+    <title>Login Form | CodingLab</title> 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <div class="wrapper">
-        <div class="title"><span>Sign Up</span></div>
-        <form action="#">
-          <div class="row">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="Email " required>
-          </div>
-          <script>
-            let regex = new RegExp('[a-z0-9]+@gmail.com');
-  
-  let email = document.getElementById('email').value;
-  
-  email.forEach((address) => {
-      console.log(regex.test(address))
-  });
-  
-            </script>
-          <div class="row">
-            <i class="fas fa-user"></i>
-            <input type="number" placeholder=" Age " required>
-          </div>
-          <div class="row">
-            <i class="fas fa-phone"></i>
-            <input type="tel" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9{4}" required>
-          </div>
-          <div class="row">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" id="password" required>
-          </div>
-               <script> var password =document.getElementById('password').value;
-                if(password.length < 8) { 
-                console.log("Error: Password must be at least 8 characters"); 
-                } else if(password.search(/[a-z]/) < 0) { 
-                console.log("Error: Password must contain at least one lowercase letter"); 
-                } else if(password.search(/[A-Z]/) < 0) { 
-                console.log("Error: Password must contain at least one uppercase letter"); 
-                } else if(password.search(/[0-9]/) < 0) { 
-                console.log("Error: Password must contain at least one number"); 
-                } else { 
-                console.log(" "); 
-                }   </script>
-
-          <div class="row">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder=" Confirm password" id="confirm_password" required>
-          </div>
-          <script>
-            var password = document.getElementById("password").value
-                , confirm_password = document.getElementById("confirm_password").value;
-              
-              function validatePassword(){
-                if(password.value != confirm_password.value) {
-                  confirm_password.setCustomValidity("Passwords Don't Match");
-                } else {
-                  confirm_password.setCustomValidity('');
-                }
-              }
-              
-              password.onchange = validatePassword;
-              confirm_password.onkeyup = validatePassword;</script>
-          
-          <div class="row button">
-            <input type="submit" value="sign up">
-          </div>
-        </form>
-      </div>
+        <div class="wrapper">
+            <div class="title"><span>Sign Up</span></div>
+            <form action="#" id="signupForm">
+                <div class="row">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Email" id="email" required>
+                </div>
+                <div class="row">
+                    <i class="fas fa-user"></i>
+                    <input type="number" placeholder="Age" required>
+                </div>
+                <div class="row">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                </div>
+                <div class="row">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" id="password" required>
+                </div>
+                <div class="row">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Confirm password" id="confirm_password" required>
+                </div>
+                <div class="row button">
+                    <input type="submit" value="sign up">
+                </div>
+            </form>
+        </div>
     </div>
 
-  </body>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Email validation
+            let email = document.getElementById('email').value;
+            let regex = new RegExp('[a-z0-9]+@gmail.com');
+            if(!regex.test(email)) {
+                console.log("Invalid email format. Must be a gmail.com address.");
+                return false;
+            }
+
+            // Password validation
+            var password = document.getElementById('password').value;
+            if(password.length < 8) {
+                console.log("Error: Password must be at least 8 characters");
+                return false;
+            } else if(password.search(/[a-z]/) < 0) {
+                console.log("Error: Password must contain at least one lowercase letter");
+                return false;
+            } else if(password.search(/[A-Z]/) < 0) {
+                console.log("Error: Password must contain at least one uppercase letter");
+                return false;
+            } else if(password.search(/[0-9]/) < 0) {
+                console.log("Error: Password must contain at least one number");
+                return false;
+            }
+
+            // Confirm password validation
+            var confirm_password = document.getElementById("confirm_password").value;
+            if(password !== confirm_password) {
+                console.log("Passwords don't match.");
+                return false;
+            }
+
+            // If everything is fine, submit the form or perform further actions
+            // For demonstration, just logging to console
+            console.log("Form submitted successfully!");
+            // Here you can actually submit the form using AJAX or set window.location to redirect
+        });
+    </script>
+</body>
 </html>
