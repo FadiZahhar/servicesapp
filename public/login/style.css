@@ -9,9 +9,7 @@ body{
   background: #cecfcf;
   overflow: hidden;
 }
-::selection{
-  background: rgba(26,188,156,0.3);
-}
+
 .container{
   max-width: 500px;
   padding: 0 20px; /* Add some padding */
@@ -98,11 +96,11 @@ form .row input::placeholder{
 }
 form .button input:hover{
   background: #000000;
-  border: 1px solid #16a085;
+  border: 1px solid #000000;
   cursor: pointer;
 }
 form .button input:hover{
-  background: #12876f;
+  background: #000000;
 }
 .wrapper form .signup-link{
   text-align: center;
@@ -111,7 +109,6 @@ form .button input:hover{
 }
 .wrapper form .signup-link a{
   color: #000000;
-  color: #16a085;
   text-decoration: none;
 }
 /* Style for the label */
