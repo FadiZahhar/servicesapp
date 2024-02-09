@@ -5,9 +5,11 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import Link from "next/link";
 import OAuth from "@/components/OAuth";
-
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
+    const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -31,10 +33,10 @@ export default function SignIn() {
         password
       );
       if (userCredential.user) {
-        // need to navigate using next js method and not react navigate("/");
+        router.push('/dashboard');
       }
     } catch (error) {
-      
+        toast.error("Bad user credentials");
     }
   }
   return (

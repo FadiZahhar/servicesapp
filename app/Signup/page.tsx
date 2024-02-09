@@ -5,9 +5,19 @@ import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 
-
+// important the firebase and utilities such toast 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { db } from "../../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { useRouter } from 'next/navigation';
+import { toast } from "react-toastify";
 
 export default function SignUp() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -25,7 +35,28 @@ export default function SignUp() {
   async function onSubmit(e:any) {
     e.preventDefault();
 
-    
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      const user = userCredential.user;
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+      toast.success("Sign up was successful");
+      router.push('/Signin');
+    } catch (error) {
+      toast.error("Something went wrong with the registration");
+    }
       
       
   }
