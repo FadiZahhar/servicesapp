@@ -20,7 +20,7 @@ export default function SignIn() {
       [e.target.id]: e.target.value,
     }));
   }
-  async function onSubmit(e) {
+  async function onSubmit(e:any) {
     e.preventDefault();
     try {
       const auth = getAuth();
@@ -82,7 +82,7 @@ export default function SignIn() {
               <p className="mb-6">
                 Dont have a account?
                 <Link
-                  href="/sign-up"
+                  href="/Signup"
                   className="text-red-600 hover:text-red-700 transition duration-200 ease-in-out ml-1"
                 >
                   Register
@@ -90,7 +90,7 @@ export default function SignIn() {
               </p>
               <p>
                 <Link
-                  href="/forgot-password"
+                  href="/ForgotPassword"
                   className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out"
                 >
                   Forgot password?
