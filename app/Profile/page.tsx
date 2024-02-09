@@ -20,8 +20,11 @@ import { useEffect } from "react";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Controller, useForm } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
 
 export default function Profile() {
+  const { control, register, handleSubmit, formState: { errors } } = useForm();
   const router = useRouter();
   const auth = getAuth();
   const [changeDetail, setChangeDetail] = useState(false);
@@ -30,6 +33,19 @@ export default function Profile() {
   const [formData, setFormData] = useState({
     name: auth.currentUser?.displayName,
     email: auth.currentUser?.email,
+    profileType: '',
+    phoneNumber:'',
+    dateOfBirth:'',
+    profilePicture:'',
+    address:'',
+    biography:'',
+    gender:'',
+    Nationality:'',
+    /* company */
+    typeOfBusiness:'',
+    registrationNumber:'',
+    websiteUrl:'',
+    oporatingHours:''
   });
   const { name, email } = formData;
   function onLogout() {
@@ -92,13 +108,16 @@ export default function Profile() {
     //fetchUserListings();
   }, [auth.currentUser?.uid]);
 
+  const onSubmit2 = data => {
+    console.log(data);
+  };
 
   return (
     <>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
         <h1 className="text-3xl text-center mt-6 font-bold">My Profile</h1>
         <div className="w-full md:w-[50%] mt-6 px-3">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit2)}>
             {/* Name Input */}
 
             <input
@@ -122,7 +141,230 @@ export default function Profile() {
               className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
             />
 
-            <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
+
+
+
+            <p className="text-lg mt-6 font-semibold">Profile Type</p>
+      <div className="flex">
+        <button
+          type="button"
+          id="profileType"
+          value="personal"
+          onClick={onChange}
+          className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
+            formData.profileType === "personal"
+              ? "bg-white text-black"
+              : "bg-slate-600 text-white"
+          }`}
+        >
+          Personal
+        </button>
+        <button
+          type="button"
+          id="profileType"
+          value="business"
+          onClick={onChange}
+          className={`px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
+            formData.profileType === "business"
+              ? "bg-white text-black"
+              : "bg-slate-600 text-white"
+          }`}
+        >
+          Business
+        </button>
+        </div><br/>
+
+
+        {/* phone number */}
+        <p className="text-lg mt-6 font-semibold">Phone Number</p>
+      <input
+        id="phoneNumber"
+        {...register("phoneNumber", {
+          required: "Phone number is required",
+          pattern: {
+            // This is a simple pattern for a 10-digit phone number, adjust as needed
+            value: /^\d{10}$/,
+            message: "Invalid phone number, must be 10 digits"
+          }
+        })}
+        onChange={onChange}
+              className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
+                changeDetail && "bg-red-200 focus:bg-red-200"
+              }`}
+      />
+      {errors.phoneNumber && <p className="error">{errors.phoneNumber.message}</p>}
+
+      {/* dateOfBirth */}
+      <p className="text-lg mt-6 font-semibold">Date of Birth</p>
+      <Controller
+        name="dateOfBirth"
+        control={control}
+        rules={{ required: "Date of Birth is required" }}
+        render={({ field }) => (
+          <DatePicker
+            placeholderText="Select date"
+            onChange={(date: Date) => field.onChange(date)}
+            selected={field.value}
+            dateFormat="MM/dd/yyyy"
+            className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
+                changeDetail && "bg-red-200 focus:bg-red-200"
+              }`}
+          />
+        )}
+      />
+      {errors.dateOfBirth && <p className="error">{errors.dateOfBirth.message}</p>}<br/>
+
+
+            {/* profilePicture */}
+    <p className="text-lg mt-6 font-semibold">Profile Picture / Logo</p>
+    <Controller
+        name="profilePicture"
+        control={control}
+        rules={{ required: "Profile picture is required" }}
+        render={({ field }) => (
+          <input
+            type="file"
+            onChange={(e) => field.onChange(e.target.files)} // Updating the form state with the file(s)
+            accept="image/*" // Restrict file input to images
+            className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
+                changeDetail && "bg-red-200 focus:bg-red-200"
+              }`}
+          />
+        )}
+      />
+      {errors.profilePicture && <p className="error">{errors.profilePicture.message}</p>}
+
+
+      {/* Address */}
+<p className="text-lg mt-6 font-semibold">Address</p>
+<Controller
+    name="address"
+    control={control}
+    rules={{ required: "Address is required" }}
+    render={({ field }) => (
+      <input
+        {...field}
+        type="text"
+        placeholder="Address"
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      />
+    )}
+/>
+{errors.address && <p className="error">{errors.address.message}</p>}
+
+{/* Biography */}
+<p className="text-lg mt-6 font-semibold">Biography</p>
+<Controller
+    name="biography"
+    control={control}
+    render={({ field }) => (
+      <textarea
+        {...field}
+        placeholder="Biography"
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      />
+    )}
+/>
+
+{/* Gender */}
+<p className="text-lg mt-6 font-semibold">Gender</p>
+<Controller
+    name="gender"
+    control={control}
+    rules={{ required: "Gender is required" }}
+    render={({ field }) => (
+      <select
+        {...field}
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      >
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+    )}
+/>
+{errors.gender && <p className="error">{errors.gender.message}</p>}
+
+{/* Nationality */}
+<p className="text-lg mt-6 font-semibold">Nationality</p>
+<Controller
+    name="nationality"
+    control={control}
+    render={({ field }) => (
+      <input
+        {...field}
+        type="text"
+        placeholder="Nationality"
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      />
+    )}
+/>
+
+{/* Type of Business */}
+<p className="text-lg mt-6 font-semibold">Type of Business</p>
+<Controller
+    name="typeOfBusiness"
+    control={control}
+    render={({ field }) => (
+      <input
+        {...field}
+        type="text"
+        placeholder="Type of Business"
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      />
+    )}
+/>
+
+{/* Registration Number */}
+<p className="text-lg mt-6 font-semibold">Registration Number</p>
+<Controller
+    name="registrationNumber"
+    control={control}
+    render={({ field }) => (
+      <input
+        {...field}
+        type="text"
+        placeholder="Registration Number"
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      />
+    )}
+/>
+
+{/* Website URL */}
+<p className="text-lg mt-6 font-semibold">Website URL</p>
+<Controller
+    name="websiteUrl"
+    control={control}
+    render={({ field }) => (
+      <input
+        {...field}
+        type="url"
+        placeholder="Website URL"
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      />
+    )}
+/>
+
+{/* Operating Hours */}
+<p className="text-lg mt-6 font-semibold">Operating Hours</p>
+<Controller
+    name="operatingHours"
+    control={control}
+    render={({ field }) => (
+      <input
+        {...field}
+        type="text"
+        placeholder="Operating Hours"
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      />
+    )}
+/>
+
+
+
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition ease-in-out duration-150">Submit</button>
+        <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
               <p className="flex items-center ">
                 Do you want to change your name?
                 <span
@@ -142,6 +384,8 @@ export default function Profile() {
                 Sign out
               </p>
             </div>
+
+            
           </form>
           <button
             type="submit"
