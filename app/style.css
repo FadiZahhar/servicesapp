@@ -1817,3 +1817,7 @@ section {
 button a {
   color:#fff;
 }
+
+input {
+  border:1px solid #ccc;
+}
