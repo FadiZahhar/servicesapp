@@ -27,6 +27,7 @@ export default function Header() {
             alt="logo"
             className="cursor-pointer"
             width={120}
+            onClick={() => router.push('/')}
           />
         </div>
         <div>
