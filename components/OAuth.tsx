@@ -1,5 +1,9 @@
-
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
+import { db } from "../firebase"
+import { useNavigate } from "react-router-dom";
 
 export default function OAuth() {
   async function onGoogleClick() {
