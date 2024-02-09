@@ -13,7 +13,7 @@ export default function Header() {
       if (user) {
         setPageState("Profile");
       } else {
-        setPageState("Sign in");
+        setPageState("Signin");
       }
     });
   }, [auth]);
@@ -26,6 +26,7 @@ export default function Header() {
             src={imageSrc.src}
             alt="logo"
             className="cursor-pointer"
+            width={120}
           />
         </div>
         <div>
@@ -33,7 +34,7 @@ export default function Header() {
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
               }`}
-              onClick={() => router.push('/Signin')}
+              onClick={() => router.push('/')}
             >
               Home
             </li>
@@ -47,7 +48,7 @@ export default function Header() {
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
               }`}
-              onClick={() => router.push('/Profile')}
+              onClick={() => router.push(`/${pageState}`)}
             >
               {pageState}
             </li>

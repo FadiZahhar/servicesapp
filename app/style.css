@@ -1813,3 +1813,7 @@ section {
   display: flex;
   justify-content: center;
 }
+
+button a {
+  color:#fff;
+}
