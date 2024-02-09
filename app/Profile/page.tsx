@@ -1,6 +1,8 @@
 "use client"
-import { getAuth, updateProfile } from "firebase/auth";
+import { Auth, User, getAuth, updateProfile } from "firebase/auth";
 import {
+    DocumentData,
+    Firestore,
   collection,
   deleteDoc,
   doc,
@@ -10,10 +12,10 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
 import { db } from "../../firebase";
-import { FcHome } from "react-icons/fc";
+import { RxLapTimer } from "react-icons/rx";
 import { useEffect } from "react";
 
 import Link from "next/link";
@@ -34,32 +36,40 @@ export default function Profile() {
     auth.signOut();
     router.push('/');
   }
-  function onChange(e) {
+  function onChange(e:any) {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
   }
-  async function onSubmit() {
+  async function onSubmit(name: string, auth: Auth, db: Firestore): Promise<void> {
     try {
-      if (auth.currentUser.displayName !== name) {
-        //update display name in firebase auth
-        await updateProfile(auth.currentUser, {
+      const currentUser = auth.currentUser;
+  
+      if (!currentUser) {
+        throw new Error("No authenticated user.");
+      }
+  
+      if (currentUser.displayName !== name) {
+        // Update display name in Firebase Auth
+        await updateProfile(currentUser, {
           displayName: name,
         });
-
-        // update name in the firestore
-
-        const docRef = doc(db, "users", auth.currentUser?.uid);
+  
+        // Update name in Firestore
+        const docRef = doc(db, "users", currentUser.uid);
         await updateDoc(docRef, {
-          name,
+          name: name,
         });
       }
+  
       toast.success("Profile details updated");
     } catch (error) {
+      console.error("Could not update the profile details", error);
       toast.error("Could not update the profile details");
     }
   }
+  
   useEffect(() => {
     async function fetchUserListings() {
       const listingRef = collection(db, "listings");
@@ -69,14 +79,14 @@ export default function Profile() {
         orderBy("timestamp", "desc")
       );
       const querySnap = await getDocs(q);
-      let listings = [];
+      /*let listings: SetStateAction<null> | { id: string; data: DocumentData; }[] = [];
       querySnap.forEach((doc) => {
         return listings.push({
           id: doc.id,
           data: doc.data(),
         });
       });
-      setListings(listings);
+      setListings(listings);*/
       setLoading(false);
     }
     //fetchUserListings();
@@ -94,7 +104,7 @@ export default function Profile() {
             <input
               type="text"
               id="name"
-              value={name}
+              value={(name) ? name : ''}
               disabled={!changeDetail}
               onChange={onChange}
               className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
@@ -107,7 +117,7 @@ export default function Profile() {
             <input
               type="email"
               id="email"
-              value={email}
+              value={(email) ? email : ''}
               disabled
               className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
             />
@@ -117,7 +127,7 @@ export default function Profile() {
                 Do you want to change your name?
                 <span
                   onClick={() => {
-                    changeDetail && onSubmit();
+                    changeDetail && onSubmit((name) ? name : '',auth,db);
                     setChangeDetail((prevState) => !prevState);
                   }}
                   className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 ml-1 cursor-pointer"
@@ -138,11 +148,11 @@ export default function Profile() {
             className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
           >
             <Link
-              href="/create-listing"
+              href="/Packages"
               className="flex justify-center items-center"
             >
-              <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
-              Sell or rent your home
+              <RxLapTimer className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
+              Get or Check Hours Consuption
             </Link>
           </button>
         </div>

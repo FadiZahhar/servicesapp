@@ -1,4 +1,5 @@
 "use client"
+import { FormEvent } from 'react';
 import OAuth from "@/components/OAuth";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,10 +17,17 @@ import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
 import { toast } from "react-toastify";
 
+interface FormData {
+  email: string;
+  password: string;
+  name: string;
+  // Add other form data fields as necessary
+}
+
 export default function SignUp() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     password: "",
@@ -32,34 +40,48 @@ export default function SignUp() {
       [e.target.id]: e.target.value,
     }));
   }
-  async function onSubmit(e:any) {
-    e.preventDefault();
 
-    try {
-      const auth = getAuth();
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      updateProfile(auth.currentUser, {
-        displayName: name,
-      });
-      const user = userCredential.user;
-      const formDataCopy = { ...formData };
-      delete formDataCopy.password;
-      formDataCopy.timestamp = serverTimestamp();
-
-      await setDoc(doc(db, "users", user.uid), formDataCopy);
-      toast.success("Sign up was successful");
-      router.push('/Signin');
-    } catch (error) {
-      toast.error("Something went wrong with the registration");
-    }
-      
-      
+  // Adjusted onSubmit function to directly handle the form event
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  try {
+    // Your existing logic...
+    await onSubmit(formData); // Assuming onSubmit now only needs formData
+  } catch (error) {
+    // Handle error
   }
+};
+ // Assuming `formData` is properly defined in your component or passed to this function,
+// and contains `email`, `password`, and `name` fields.
+async function onSubmit(formData: FormData): Promise<void> {
+  const { email, password, name } = formData;
+  const auth = getAuth();
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Now check if the user is not null before calling updateProfile
+    if (user) {
+      await updateProfile(user, { displayName: name });
+    } else {
+      // Handle the unexpected null user object here
+      console.error("User is null after successful sign up.");
+      return;
+    }
+
+    // Proceed with Firestore document creation
+    const formDataCopy = { ...formData, timestamp: serverTimestamp() };
+    delete (formDataCopy as Partial<FormData>).password; // It's good practice not to store passwords in Firestore
+
+    await setDoc(doc(db, "users", user.uid), formDataCopy);
+    toast.success("Sign up was successful");
+    router.push('/signin'); // Ensure the route is correctly specified
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong with the registration");
+  }
+}
   return (
     <section>
       <h1 className="text-3xl text-center mt-6 font-bold">Sign Up</h1>
@@ -72,7 +94,7 @@ export default function SignUp() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               id="name"
