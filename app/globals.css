@@ -20,3 +20,33 @@
   color: brown;
   font-size: small;
 }
+
+.swiper-pagination-bullet {
+  background: #000; /* Change the bullet color */
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #fff; /* Change the active bullet color */
+}
+.video-btn {
+  margin:0 auto;
+  margin-top:20px;
+  text-align: center;
+}
+
+.video-btn i {
+  font-size:large
+}
+
+.video-btn a {
+  font-size: large;
+}
+
+.centered {
+  text-align: center;
+}
+
+.centered  svg {
+  margin: 0 auto;
+}

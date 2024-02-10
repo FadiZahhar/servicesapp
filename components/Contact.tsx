@@ -8,7 +8,11 @@ export default function Contact() {
       <div className="section-title">
         <h2>Contact</h2>
         <h3><span>Contact Us</span></h3>
-        <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        <p style={{'textAlign':'left'}}>We are here to answer any questions you might have or to discuss how we can bring your project to life. Feel free to reach out to us by filling out the form below. Your inquiries and projects are important to us, and we look forward to understanding your needs and exploring how we can support your success.
+
+Alternatively, if you prefer a face-to-face conversation or wish to see where the magic happens, you are warmly invited to visit our office. We are open from Monday to Friday, 9 AM to 9 PM, ready to welcome you and discuss your project in a comfortable and professional setting.
+
+Whether you choose to connect digitally or step into our office, we assure you of our full attention and the promise to explore every avenue to support your vision.</p>
       </div>
 
       <div className="row" data-aos="fade-up" data-aos-delay="100">
@@ -16,7 +20,9 @@ export default function Contact() {
           <div className="info-box mb-4">
             <i className="bx bx-map"><FaMapMarkerAlt /></i>
             <h3>Our Address</h3>
-            <p>A108 Adam Street, New York, NY 535022</p>
+            <p>Lebanon - Matern - Mansouriyeh 
+              <br/>Municipality Street - Naddaf Building
+              <br/>Block A - First Floor - Near Zeidan Press</p>
           </div>
         </div>
 
@@ -24,7 +30,7 @@ export default function Contact() {
           <div className="info-box  mb-4">
             <i className="bx bx-envelope"><MdOutlineEmail/></i>
             <h3>Email Us</h3>
-            <p>contact@example.com</p>
+            <p><a href="mailto:info@wmvp.dev">info@wmvp.dev</a></p>
           </div>
         </div>
 
@@ -32,7 +38,7 @@ export default function Contact() {
           <div className="info-box  mb-4">
             <i className="bx bx-phone-call"><MdOutlinePermPhoneMsg/></i>
             <h3>Call Us</h3>
-            <p>+1 5589 55488 55</p>
+            <p><a href="tel:+9613706663">+961 3 706663</a></p>
           </div>
         </div>
 
@@ -41,7 +47,7 @@ export default function Contact() {
       <div className="row" data-aos="fade-up" data-aos-delay="100">
 
         <div className="col-lg-6 ">
-          <iframe className="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameBorder="0" style={{'border':'0','width':'100%','height':'384px'}} allowFullScreen></iframe>
+         <iframe className="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12949.727891036782!2d35.56799910912681!3d33.85327596208166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f17acdc9974b5%3A0x283cb12560151510!2spro-solutions.net!5e0!3m2!1sen!2slb!4v1707574022659!5m2!1sen!2slb" frameBorder="0" style={{'border':'0','width':'100%','height':'384px'}} allowFullScreen></iframe>
         </div>
 
         <div className="col-lg-6">

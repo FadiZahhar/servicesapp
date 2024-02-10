@@ -104,11 +104,11 @@ export default function Profile() {
       });
       setListings(listings);*/
       setLoading(false);
-    }
+    };
     //fetchUserListings();
   }, [auth.currentUser?.uid]);
 
-  const onSubmit2 = data => {
+  const onSubmit2 = (data: any) => {
     console.log(data);
   };
 
