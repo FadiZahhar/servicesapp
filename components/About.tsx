@@ -43,7 +43,6 @@ export default function About() {
         <div className='video-btn'>
         <ModalVideo 
             channel="youtube" 
-            autoplay 
             isOpen={isOpen} 
             videoId="Z1VbVM0Wdv8" // Use your video ID
             onClose={() => setOpen(false)} 
@@ -54,7 +53,7 @@ export default function About() {
         <div className="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
           <h3>We Identify and define the problem your product aims to solve. Engage with potential users to ensure the problem is significant and widespread.</h3>
           <p className="fst-italic">
-           Focus on the core feature or set of features that directly address the problem. This is your product's value proposition.
+           Focus on the core feature or set of features that directly address the problem. This is your product&aposs value proposition.
           </p>
           <ul>
             <li>
@@ -67,13 +66,13 @@ export default function About() {
             <li>
               <i className="bx bx-images"><BiImages /></i>
               <div>
-                <h5>List all potential features, then categorize them into "must-have", "nice-to-have", and "non-essential" buckets.</h5>
+                <h5>List all potential features, then categorize them into &quot;must-have&quot;, &quot;nice-to-have&quot;, and &quot;non-essential&quot; buckets.</h5>
                 <p>Apply our expertise in product development to recommend the essential features for your MVP.</p>
               </div>
             </li>
           </ul>
           <p>
-          Creating a successful MVP is about learning quickly what works and what doesn’t with the least amount of effort. Pro-Solutions.net partners with you through this journey, leveraging our expertise in technology and product development to ensure your MVP has the best chance of success. Our approach is collaborative, data-driven, and user-focused, ensuring that your product not only meets the market need but is also positioned for growth and scalability.
+          Creating a successful MVP is about learning quickly what works and what doesn&apos;t with the least amount of effort. Pro-Solutions.net partners with you through this journey, leveraging our expertise in technology and product development to ensure your MVP has the best chance of success. Our approach is collaborative, data-driven, and user-focused, ensuring that your product not only meets the market need but is also positioned for growth and scalability.
           </p>
         </div>
       </div>

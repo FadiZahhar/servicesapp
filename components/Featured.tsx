@@ -18,7 +18,7 @@ export default function Featured() {
           <div className="icon-box" data-aos="fade-up" data-aos-delay="100">
             <div className="icon"><i className="bx bxl-dribbble"><MdOutlineManageAccounts/></i></div>
             <h4 className="title"><a href="">Create an account</a></h4>
-            <p className="description">Click on the "Sign Up" button located at the top right corner of our homepage.</p>
+            <p className="description">Click on the &quot;Sign Up&quot; button located at the top right corner of our homepage.</p>
           </div>
         </div>
 

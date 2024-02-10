@@ -11,8 +11,7 @@ export default function Hero() {
       <div className="d-flex">
         <a href="#about" className="btn-get-started scrollto">Get Started</a>
         <ModalVideo 
-        channel="youtube" 
-        autoplay 
+        channel="youtube"
         isOpen={isOpen} 
         videoId="7OQ3lhWirF4" // Use your video ID
         onClose={() => setOpen(false)} 

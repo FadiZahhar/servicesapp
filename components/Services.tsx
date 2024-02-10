@@ -18,7 +18,7 @@ export default function Services() {
       <div className="section-title">
         <h2>Services</h2>
         <h3>Check our <span>Services</span></h3>
-        <p>Our platform's packages are meticulously designed to support the MVP project, ensuring a comprehensive and efficient development process. The services included in our packages are as follows:</p>
+        <p>Our platform&aposs packages are meticulously designed to support the MVP project, ensuring a comprehensive and efficient development process. The services included in our packages are as follows:</p>
       </div>
 
       <div className="row">
@@ -90,7 +90,7 @@ export default function Services() {
           <div className="icon-box">
             <div className="icon"><i className="bx bx-arch"><FaWordpress /></i></div>
             <h4><a href="">Custom Theme Development</a></h4>
-            <p>We design and develop bespoke WordPress, Drupal themes that align with your MVP's branding and functional requirements, ensuring a unique and optimized web presence.</p>
+            <p>We design and develop bespoke WordPress, Drupal themes that align with your MVP&aposs branding and functional requirements, ensuring a unique and optimized web presence.</p>
           </div>
         </div>
 
@@ -98,7 +98,7 @@ export default function Services() {
           <div className="icon-box">
             <div className="icon"><i className="bx bx-arch"><BsPlugin /></i></div>
             <h4><a href="">Plugin Development</a></h4>
-            <p>To extend the functionality of your MVP's WordPress site, we create custom plugins. Whether you need to add specific features, integrate third-party services, or improve operational efficiency, our custom plugin development service is geared towards enhancing your platform's capabilities.</p>
+            <p>To extend the functionality of your MVP&aposs WordPress site, we create custom plugins. Whether you need to add specific features, integrate third-party services, or improve operational efficiency, our custom plugin development service is geared towards enhancing your platform&aposs capabilities.</p>
           </div>
         </div>
 

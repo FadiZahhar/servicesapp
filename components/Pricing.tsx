@@ -14,7 +14,7 @@ export default function Pricing() {
           <div className="box">
             <h3>Free Consultation</h3>
             <h4><sup>$</sup>0<span> / 1 hour</span></h4>
-            <p>We believe in the power of informed decision-making. To kickstart your journey with us, we offer a free consultation session. This includes a one-time Zoom call, allowing us to understand your project requirements and you to gauge how our services can align with your goals. It's the perfect starting point to clarify your vision and our potential role in bringing it to life.</p>
+            <p>We believe in the power of informed decision-making. To kickstart your journey with us, we offer a free consultation session. This includes a one-time Zoom call, allowing us to understand your project requirements and you to gauge how our services can align with your goals. It&aposs the perfect starting point to clarify your vision and our potential role in bringing it to life.</p>
             <div className="btn-wrap">
               <a href="#" className="btn-buy">Schedule a Call</a>
             </div>
@@ -25,7 +25,7 @@ export default function Pricing() {
           <div className="box featured">
             <h3>Basic Package</h3>
             <h4><sup>$</sup>200<span> / month</span></h4>
-            <p>Tailored for projects needing quick interventions or a taste of our capabilities, our Basic Package offers 4 hours of work. This package is ideal for small-scale tasks or initial phases of development, structured as a sprint over 25 working days. It provides a focused approach to tackling specific challenges or tasks in your project's development.</p>
+            <p>Tailored for projects needing quick interventions or a taste of our capabilities, our Basic Package offers 4 hours of work. This package is ideal for small-scale tasks or initial phases of development, structured as a sprint over 25 working days. It provides a focused approach to tackling specific challenges or tasks in your project&aposs development.</p>
             <div className="btn-wrap">
               <a href="#" className="btn-buy">Buy Now</a>
             </div>

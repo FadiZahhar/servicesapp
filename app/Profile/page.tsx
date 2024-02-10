@@ -192,7 +192,9 @@ export default function Profile() {
                 changeDetail && "bg-red-200 focus:bg-red-200"
               }`}
       />
-      {errors.phoneNumber && <p className="error">{errors.phoneNumber.message}</p>}
+      {errors.phoneNumber && errors.phoneNumber.message && (
+  <p className="error">{errors.phoneNumber.message as string}</p>
+)}
 
       {/* dateOfBirth */}
       <p className="text-lg mt-6 font-semibold">Date of Birth</p>
@@ -212,7 +214,7 @@ export default function Profile() {
           />
         )}
       />
-      {errors.dateOfBirth && <p className="error">{errors.dateOfBirth.message}</p>}<br/>
+      {errors.dateOfBirth && errors.dateOfBirth.message && (<p className="error">{errors.dateOfBirth.message as string}</p>)}<br/>
 
 
             {/* profilePicture */}
@@ -232,7 +234,7 @@ export default function Profile() {
           />
         )}
       />
-      {errors.profilePicture && <p className="error">{errors.profilePicture.message}</p>}
+      {errors.profilePicture && errors.profilePicture.message && (<p className="error">{errors.profilePicture.message as string}</p>)}
 
 
       {/* Address */}
@@ -250,7 +252,7 @@ export default function Profile() {
       />
     )}
 />
-{errors.address && <p className="error">{errors.address.message}</p>}
+{errors.address && errors.address.message && (<p className="error">{errors.address.message as string}</p>)}
 
 {/* Biography */}
 <p className="text-lg mt-6 font-semibold">Biography</p>
@@ -284,7 +286,7 @@ export default function Profile() {
       </select>
     )}
 />
-{errors.gender && <p className="error">{errors.gender.message}</p>}
+{errors.gender && errors.gender.message && (<p className="error">{errors.gender.message as string}</p>)}
 
 {/* Nationality */}
 <p className="text-lg mt-6 font-semibold">Nationality</p>
