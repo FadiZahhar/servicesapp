@@ -53,7 +53,7 @@ export default function About() {
         <div className="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
           <h3>We Identify and define the problem your product aims to solve. Engage with potential users to ensure the problem is significant and widespread.</h3>
           <p className="fst-italic">
-           Focus on the core feature or set of features that directly address the problem. This is your product&aposs value proposition.
+           Focus on the core feature or set of features that directly address the problem. This is your product&apos; value proposition.
           </p>
           <ul>
             <li>
