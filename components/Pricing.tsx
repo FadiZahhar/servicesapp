@@ -1,5 +1,5 @@
 export default function Pricing() {
-    return(    <section id="pricing" className="pricing">
+    return(    <section id="our-packages" className="pricing">
     <div className="container" data-aos="fade-up">
 
       <div className="section-title">

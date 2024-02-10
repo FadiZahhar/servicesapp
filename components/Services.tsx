@@ -12,7 +12,7 @@ import { FaShopify } from "react-icons/fa";
 import { MdOutlineSettingsApplications } from "react-icons/md";
 
 export default function Services() {
-    return(    <section id="services" className="services">
+    return(    <section id="our-services" className="services">
     <div className="container" data-aos="fade-up">
 
       <div className="section-title">

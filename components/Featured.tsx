@@ -3,7 +3,7 @@ import { FaAmazonPay } from "react-icons/fa";
 import { LuPackagePlus } from "react-icons/lu";
 import { MdOutlineManageAccounts } from "react-icons/md";
 export default function Featured() {
-    return(    <section id="featured-services" className="featured-services">
+    return(    <section id="how-we-work" className="featured-services">
 
 <div className="section-title">
         <h2>Our Platform</h2>

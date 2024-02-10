@@ -2,7 +2,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdOutlinePermPhoneMsg } from "react-icons/md";
 export default function Contact() {
-    return(    <section id="contact" className="contact">
+    return(    <section id="contact-us" className="contact">
     <div className="container" data-aos="fade-up">
 
       <div className="section-title">

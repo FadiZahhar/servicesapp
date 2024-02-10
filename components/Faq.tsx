@@ -62,7 +62,7 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="faq section-bg">
+    <section id="FAQ" className="faq section-bg">
     <div className="container" data-aos="fade-up">
 
       <div className="section-title">

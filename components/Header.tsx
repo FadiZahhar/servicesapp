@@ -35,16 +35,51 @@ export default function Header() {
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
               }`}
-              onClick={() => router.push('/')}
+              onClick={() => router.push('/#hero')}
             >
               Home
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
               }`}
-              onClick={() => router.push('/offers')}
+              onClick={() => router.push('/#about')}
             >
-              Offers
+              About
+            </li>
+            <li
+              className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
+              }`}
+              onClick={() => router.push('/#how-we-work')}
+            >
+              How We Work
+            </li>
+            <li
+              className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
+              }`}
+              onClick={() => router.push('/#our-services')}
+            >
+              Our Services
+            </li>
+            <li
+              className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
+              }`}
+              onClick={() => router.push('/#our-packages')}
+            >
+              Our Packages
+            </li>
+            <li
+              className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
+              }`}
+              onClick={() => router.push('/#FAQ')}
+            >
+              FAQ
+            </li>
+            <li
+              className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
+              }`}
+              onClick={() => router.push('/#contact-us')}
+            >
+              Contact Us
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent text-black border-b-red-500"
