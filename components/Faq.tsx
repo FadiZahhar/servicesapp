@@ -68,7 +68,7 @@ const FAQ: React.FC = () => {
       <div className="section-title">
         <h2>F.A.Q</h2>
         <h3>Frequently Asked <span>Questions</span></h3>
-        <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        <p>Addressing common queries related to our services, packages, and processes. Here are several FAQ topics based on the services and package structures to provide clarity and support to our clients:</p>
       </div>
       <div className="row justify-content-center">
         <div className="col-xl-10">
