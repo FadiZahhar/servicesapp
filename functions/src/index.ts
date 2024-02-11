@@ -9,6 +9,7 @@ const SENDGRID_API_KEY = functions.config().sendgrid.key;
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 // Initialize CORS middleware with default configuration
+// @ts-ignore
 const cors = corsLib({ origin: true });
 
 export const sendContactEmail = functions.https.onRequest((req, res) => {

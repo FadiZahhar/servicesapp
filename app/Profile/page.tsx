@@ -1,5 +1,6 @@
 "use client"
 import { Auth, User, getAuth, updateProfile } from "firebase/auth";
+import ReactDatePicker from 'react-datepicker';
 import {
     DocumentData,
     Firestore,
@@ -12,7 +13,9 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { SetStateAction, useState } from "react";
+import { storage } from '../../firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { SetStateAction, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { db } from "../../firebase";
 import { RxLapTimer } from "react-icons/rx";
@@ -21,18 +24,35 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from 'react-hook-form';
-import DatePicker from 'react-datepicker';
+
+type FormData = {
+  name: string;
+  profileType: string;
+  phoneNumber:string;
+  dateOfBirth:string;
+  profilePicture:string;
+  address:string;
+  biography:string;
+  gender:string;
+  nationality:string;
+  typeOfBusiness:string;
+  registrationNumber:string;
+  websiteUrl:string;
+  operatingHours:string;
+}
 
 export default function Profile() {
-  const { control, register, handleSubmit, formState: { errors } } = useForm();
+  const { control, register, handleSubmit,setValue, formState: { errors } } = useForm<FormData>();
+  
   const router = useRouter();
   const auth = getAuth();
   const [changeDetail, setChangeDetail] = useState(false);
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [imageUrl,setImageUrl] = useState("");
   const [formData, setFormData] = useState({
     name: auth.currentUser?.displayName,
-    email: auth.currentUser?.email,
     profileType: '',
     phoneNumber:'',
     dateOfBirth:'',
@@ -40,14 +60,13 @@ export default function Profile() {
     address:'',
     biography:'',
     gender:'',
-    Nationality:'',
-    /* company */
+    nationality:'',
     typeOfBusiness:'',
     registrationNumber:'',
     websiteUrl:'',
-    oporatingHours:''
+    operatingHours:''
   });
-  const { name, email } = formData;
+ 
   function onLogout() {
     auth.signOut();
     router.push('/');
@@ -58,7 +77,9 @@ export default function Profile() {
       [e.target.id]: e.target.value,
     }));
   }
-  async function onSubmit(name: string, auth: Auth, db: Firestore): Promise<void> {
+
+  const  onSubmit = async (data:FormData) => {
+    console.log(data)
     try {
       const currentUser = auth.currentUser;
   
@@ -66,16 +87,28 @@ export default function Profile() {
         throw new Error("No authenticated user.");
       }
   
-      if (currentUser.displayName !== name) {
+      if (currentUser.displayName !== data.name) {
         // Update display name in Firebase Auth
         await updateProfile(currentUser, {
-          displayName: name,
+          displayName: data.name,
         });
   
         // Update name in Firestore
         const docRef = doc(db, "users", currentUser.uid);
         await updateDoc(docRef, {
-          name: name,
+          name: data.name,
+          profileType: data.profileType,
+          phoneNumber: data.phoneNumber,
+          dateOfBirth:data.dateOfBirth,
+          profilePicture:data.profilePicture,
+          address:data.address,
+          biography:data.biography,
+          gender:data.gender,
+          nationality:data.nationality,
+          typeOfBusiness:data.typeOfBusiness,
+          registrationNumber:data.registrationNumber,
+          websiteUrl:data.websiteUrl,
+          oporatingHours:data.operatingHours
         });
       }
   
@@ -85,6 +118,39 @@ export default function Profile() {
       toast.error("Could not update the profile details");
     }
   }
+
+
+  const uploadImage = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: any,
+    setValue: Function // React Hook Form's setValue function
+  ) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) {
+      console.log('No file selected.');
+      return;
+    }
+    const file = files[0];
+    const storageRef = ref(storage, `profile/${file.name}`);
+    
+    try {
+      const snapshot = await uploadBytes(storageRef, file);
+      console.log('Uploaded a blob or file!', snapshot);
+  
+      // Retrieve the file's URL
+      const fileUrl = await getDownloadURL(snapshot.ref);
+      console.log('File URL:', fileUrl);
+  
+      // Update the form with the file's URL
+      setValue(field.profilePicture, fileUrl); // Assuming you have a form field to store the image URL
+      setImageUrl(fileUrl);
+      toast.success('Image uploaded successfully!');
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      toast.error('Upload failed!');
+    }
+  };
+  
   
   useEffect(() => {
     async function fetchUserListings() {
@@ -112,80 +178,59 @@ export default function Profile() {
     console.log(data);
   };
 
+
   return (
     <>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
         <h1 className="text-3xl text-center mt-6 font-bold">My Profile</h1>
         <div className="w-full md:w-[50%] mt-6 px-3">
-          <form onSubmit={handleSubmit(onSubmit2)}>
+          
+          <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
+          {changeDetail && <>
+
             {/* Name Input */}
 
             <input
-              type="text"
-              id="name"
-              value={(name) ? name : ''}
-              disabled={!changeDetail}
-              onChange={onChange}
+             {...register("name", { required: true, minLength: 2 })}
               className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
                 changeDetail && "bg-red-200 focus:bg-red-200"
               }`}
             />
-
-            {/* Email Input */}
-
-            <input
-              type="email"
-              id="email"
-              value={(email) ? email : ''}
-              disabled
-              className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
-            />
-
+            {errors.name && errors.name.type === "required" && (
+            <span className="error">This is required</span>
+            )}
+            {errors.name && errors.name.type === "minLength" && (
+              <span className="error">Max length exceeded</span>
+            )}
 
 
 
             <p className="text-lg mt-6 font-semibold">Profile Type</p>
-      <div className="flex">
-        <button
-          type="button"
-          id="profileType"
-          value="personal"
-          onClick={onChange}
-          className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-            formData.profileType === "personal"
-              ? "bg-white text-black"
-              : "bg-slate-600 text-white"
-          }`}
-        >
-          Personal
-        </button>
-        <button
-          type="button"
-          id="profileType"
-          value="business"
-          onClick={onChange}
-          className={`px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-            formData.profileType === "business"
-              ? "bg-white text-black"
-              : "bg-slate-600 text-white"
-          }`}
-        >
-          Business
-        </button>
-        </div><br/>
+            <Controller
+    name="profileType"
+    control={control}
+    rules={{ required: "Profile type is required" }}
+    render={({ field }) => (
+      <select
+        {...field}
+        className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+      >
+        <option value="">Select Profile Type</option>
+        <option value="personal">Personal</option>
+        <option value="business">Business</option>
+      </select>
+    )}
+/>
 
-
+        {errors.profileType && errors.profileType.message && (
+  <p className="error">{errors.profileType.message as string}</p>
+  )}
         {/* phone number */}
         <p className="text-lg mt-6 font-semibold">Phone Number</p>
       <input
         id="phoneNumber"
         {...register("phoneNumber", {
           required: "Phone number is required",
-          pattern: {
-            // This is a simple pattern for a 10-digit phone number, adjust as needed
-            value: /^\d{10}$/,
-            message: "Invalid phone number, must be 10 digits"
-          }
         })}
         onChange={onChange}
               className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
@@ -203,11 +248,11 @@ export default function Profile() {
         control={control}
         rules={{ required: "Date of Birth is required" }}
         render={({ field }) => (
-          <DatePicker
+          <ReactDatePicker
             placeholderText="Select date"
-            onChange={(date: Date) => field.onChange(date)}
-            selected={field.value}
-            dateFormat="MM/dd/yyyy"
+            onChange={(date: Date) => field.onChange(date.toISOString())} // Convert Date to ISO string on change
+            selected={field.value ? new Date(field.value) : null} // Convert string to Date for `selected`, handle potential null value
+            dateFormat="yyyy-MM-dd" // Adjust the date format as needed
             className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
                 changeDetail && "bg-red-200 focus:bg-red-200"
               }`}
@@ -226,14 +271,17 @@ export default function Profile() {
         render={({ field }) => (
           <input
             type="file"
-            onChange={(e) => field.onChange(e.target.files)} // Updating the form state with the file(s)
-            accept="image/*" // Restrict file input to images
-            className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
-                changeDetail && "bg-red-200 focus:bg-red-200"
-              }`}
+            onChange={(e) => {
+              uploadImage(e, field, setValue);
+            }}
+            accept="image/*"
+            className="..."
           />
         )}
       />
+      {/* Optionally display the image after upload */}
+      {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: 100, height: 100 }} />}  
+      
       {errors.profilePicture && errors.profilePicture.message && (<p className="error">{errors.profilePicture.message as string}</p>)}
 
 
@@ -259,15 +307,16 @@ export default function Profile() {
 <Controller
     name="biography"
     control={control}
+    rules={{ required: "Biography is required" }}
     render={({ field }) => (
       <textarea
         {...field}
         placeholder="Biography"
         className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
-      />
+      ></textarea>
     )}
 />
-
+{errors.biography && errors.biography.message && (<p className="error">{errors.biography.message as string}</p>)}
 {/* Gender */}
 <p className="text-lg mt-6 font-semibold">Gender</p>
 <Controller
@@ -293,46 +342,46 @@ export default function Profile() {
 <Controller
     name="nationality"
     control={control}
+    rules={{ required: "Nationality is required" }}
     render={({ field }) => (
       <input
         {...field}
-        type="text"
         placeholder="Nationality"
         className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
       />
     )}
 />
-
+{errors.nationality && errors.nationality.message && (<p className="error">{errors.nationality.message as string}</p>)}
 {/* Type of Business */}
 <p className="text-lg mt-6 font-semibold">Type of Business</p>
 <Controller
     name="typeOfBusiness"
     control={control}
+    rules={{ required: "Type of business" }}
     render={({ field }) => (
       <input
         {...field}
-        type="text"
         placeholder="Type of Business"
         className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
       />
     )}
 />
-
+{errors.typeOfBusiness && errors.typeOfBusiness.message && (<p className="error">{errors.typeOfBusiness.message as string}</p>)}
 {/* Registration Number */}
 <p className="text-lg mt-6 font-semibold">Registration Number</p>
 <Controller
     name="registrationNumber"
     control={control}
+    
     render={({ field }) => (
       <input
         {...field}
-        type="text"
         placeholder="Registration Number"
         className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
       />
     )}
 />
-
+{errors.registrationNumber && errors.registrationNumber.message && (<p className="error">{errors.registrationNumber.message as string}</p>)}
 {/* Website URL */}
 <p className="text-lg mt-6 font-semibold">Website URL</p>
 <Controller
@@ -347,7 +396,7 @@ export default function Profile() {
       />
     )}
 />
-
+{errors.websiteUrl && errors.websiteUrl.message && (<p className="error">{errors.websiteUrl.message as string}</p>)}
 {/* Operating Hours */}
 <p className="text-lg mt-6 font-semibold">Operating Hours</p>
 <Controller
@@ -356,23 +405,22 @@ export default function Profile() {
     render={({ field }) => (
       <input
         {...field}
-        type="text"
         placeholder="Operating Hours"
         className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
       />
     )}
 />
 
-
+{errors.operatingHours && errors.operatingHours.message && (<p className="error">{errors.operatingHours.message as string}</p>)}
 
       <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition ease-in-out duration-150">Submit</button>
+   </>}
         <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
               <p className="flex items-center ">
-                Do you want to change your name?
+                Do you want to change your profile?
                 <span
                   onClick={() => {
-                    changeDetail && onSubmit((name) ? name : '',auth,db);
-                    setChangeDetail((prevState) => !prevState);
+                    changeDetail ? formRef.current && formRef.current.requestSubmit() : setChangeDetail((prevState) => !prevState);
                   }}
                   className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 ml-1 cursor-pointer"
                 >
