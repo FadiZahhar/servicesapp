@@ -1,7 +1,54 @@
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdOutlinePermPhoneMsg } from "react-icons/md";
+
+interface IFormInput {
+  clientName: string;
+  clientEmail: string;
+  subject:string;
+  htmlMessage:string;
+  honeypot:string;
+}
 export default function Contact() {
+  const { control, register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+  const [formData, setFormData] = useState({
+    clientName: '',
+    clientEmail: '',
+    subject: '',
+    htmlMessage:'',
+    honeypot:'',
+  });
+  const [submitedForm,setSubmitedForm]= useState(false);
+  const [loading,setLoading] = useState(false);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    // Replace with your Firebase Function URL
+    const functionUrl = 'https://us-central1-serviceapp-247dc.cloudfunctions.net/sendContactEmail';
+    setLoading(true);
+    fetch(functionUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => {
+      response.json();
+      setSubmitedForm(true);
+      setLoading(false);
+    })
+    .then(data => {
+      console.log('Success:', data);
+      // Handle success response, maybe show a success message
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      // Handle errors here, such as showing an error message
+      setSubmitedForm(false);
+      setLoading(false);
+    });
+  };
     return(    <section id="contact-us" className="contact">
     <div className="container" data-aos="fade-up">
 
@@ -51,27 +98,46 @@ Whether you choose to connect digitally or step into our office, we assure you o
         </div>
 
         <div className="col-lg-6">
-          <form action="forms/contact.php" method="post" role="form" className="php-email-form">
+          <form onSubmit={handleSubmit(onSubmit)} className="php-email-form">
             <div className="row">
               <div className="col form-group">
-                <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required />
+                <input 
+                className="form-control" placeholder="Your Name"  
+                {...register("clientName", { required: true, minLength: 2 })} />
+                {errors.clientName && <p className="error">Full name is required and must be more than 2 characters</p>}
               </div>
               <div className="col form-group">
-                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required />
+                <input  className="form-control" placeholder="Your Email" 
+                {...register("clientEmail", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address"
+                  }
+                  })} 
+                  />
+                   {errors.clientEmail && <p className="error">{errors.clientEmail.message}</p>}
               </div>
             </div>
             <div className="form-group">
-              <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" required />
+              <input className="form-control"  placeholder="Subject" 
+              {...register("subject", { required: true, maxLength: 255 })} />
+               {errors.subject && <p className="error">Subject must be less than 255 characters</p>}
             </div>
             <div className="form-group">
-              <textarea className="form-control" name="message" rows={5} placeholder="Message" required></textarea>
+              <textarea className="form-control" rows={5} placeholder="Message" 
+                            {...register("htmlMessage", { required: true})}
+                            
+              ></textarea>
+              {errors.htmlMessage && <p className="error">Message is required</p>}
+              <input type="hidden" className="form-control"  placeholder="Honeypot" 
+              {...register("honeypot")} />
             </div>
-            <div className="my-3">
-              <div className="loading">Loading</div>
-              <div className="error-message"></div>
-              <div className="sent-message">Your message has been sent. Thank you!</div>
-            </div>
-            <div className="text-center"><button type="submit">Send Message</button></div>
+            {loading && <p>Loading...</p>}
+            <div className="text-center">
+              {!submitedForm && <button type="submit">Send Message</button>}
+              {submitedForm && <div className="sent-message">Your message has been sent. Thank you! </div>}
+              </div>
           </form>
         </div>
 
