@@ -33,7 +33,7 @@ export default function SignIn() {
         password
       );
       if (userCredential.user) {
-        router.push('/dashboard');
+        router.push('/profile');
       }
     } catch (error) {
         toast.error("Bad user credentials");
