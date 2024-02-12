@@ -75,7 +75,13 @@ export default function FormPackage() {
               error={errors.description?.message}
             />
             {/*price type number */}
-
+            <Input
+              id="price"
+              label="Price"
+              type="number"
+              register={register}
+              error={errors.number?.message}
+            />
 
             {/*paymentMethod type select*/}
             <Select
@@ -92,6 +98,13 @@ export default function FormPackage() {
 
 
             {/*notes:z.string()*/}
+            <Input
+              id="notes"
+              label="Notes"
+              type="textarea"
+              register={register}
+              error={errors.notes?.message}
+            />
 
             <button type="submit">Submint</button>
           </form>
