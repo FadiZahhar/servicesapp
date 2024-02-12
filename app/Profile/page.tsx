@@ -42,7 +42,7 @@ type FormData = {
 }
 
 export default function Profile() {
-  const { control, register, handleSubmit,setValue, formState: { errors } } = useForm<FormData>();
+  const { control, register, handleSubmit,setValue, trigger, formState: { errors } } = useForm<FormData>();
   
   const router = useRouter();
   const auth = getAuth();
@@ -56,7 +56,7 @@ export default function Profile() {
     profileType: '',
     phoneNumber:'',
     dateOfBirth:'',
-    profilePicture:'',
+    profilePicture:'test',
     address:'',
     biography:'',
     gender:'',
@@ -79,7 +79,8 @@ export default function Profile() {
   }
 
   const  onSubmit = async (data:FormData) => {
-    console.log(data)
+    console.log(data);
+
     try {
       const currentUser = auth.currentUser;
   
@@ -174,9 +175,7 @@ export default function Profile() {
     //fetchUserListings();
   }, [auth.currentUser?.uid]);
 
-  const onSubmit2 = (data: any) => {
-    console.log(data);
-  };
+
 
 
   return (
@@ -267,12 +266,12 @@ export default function Profile() {
     <Controller
         name="profilePicture"
         control={control}
-        rules={{ required: "Profile picture is required" }}
         render={({ field }) => (
           <input
             type="file"
             onChange={(e) => {
               uploadImage(e, field, setValue);
+              onChange(e);
             }}
             accept="image/*"
             className="..."
@@ -372,7 +371,7 @@ export default function Profile() {
 <Controller
     name="registrationNumber"
     control={control}
-    
+    rules={{ required: "required field" }}
     render={({ field }) => (
       <input
         {...field}
@@ -387,6 +386,7 @@ export default function Profile() {
 <Controller
     name="websiteUrl"
     control={control}
+    rules={{ required: "required field" }}
     render={({ field }) => (
       <input
         {...field}
@@ -402,6 +402,7 @@ export default function Profile() {
 <Controller
     name="operatingHours"
     control={control}
+    rules={{ required: "required field" }}
     render={({ field }) => (
       <input
         {...field}
@@ -413,7 +414,7 @@ export default function Profile() {
 
 {errors.operatingHours && errors.operatingHours.message && (<p className="error">{errors.operatingHours.message as string}</p>)}
 
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition ease-in-out duration-150">Submit</button>
+
    </>}
         <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
               <p className="flex items-center ">
@@ -438,7 +439,6 @@ export default function Profile() {
             
           </form>
           <button
-            type="submit"
             className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
           >
             <Link
