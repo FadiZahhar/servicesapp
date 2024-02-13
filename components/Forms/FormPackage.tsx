@@ -12,6 +12,8 @@ import { paymentDetails } from '@/lib/data'
 import axios from 'axios'
 import Input from '../Fields/Input';
 import Select from '../Fields/Select';
+import DateField from '../Fields/DateField';
+import UploadImage from '../Fields/UploadImage';
 
 type Inputs = z.infer<typeof packageSchema>
 export default function FormPackage() {
@@ -80,7 +82,7 @@ export default function FormPackage() {
               label="Price"
               type="number"
               register={register}
-              error={errors.number?.message}
+              error={errors.price?.message}
             />
 
             {/*paymentMethod type select*/}
@@ -92,10 +94,10 @@ export default function FormPackage() {
               error={errors.paymentMethod?.message}
               />
             {/* attachmentUrl I will handle this later since I need to create a unique component to handle image uploads */}
-
+            <UploadImage />
 
             {/*pickupAt:z.date() I will handle this later since I need to create a unique calendar component to handle date time picker */}
-
+            <DateField />
 
             {/*notes:z.string()*/}
             <Input
