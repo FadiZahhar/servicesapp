@@ -9,7 +9,7 @@ const uploader = Uploader({
 // Configuration options: https://www.bytescale.com/docs/upload-widget/frameworks/react#customize
 const options = { multi: true };
 
-const UploadImage = () => (
+const ImageField = () => (
   <UploadButton uploader={uploader}
                 options={options}
                 onComplete={files => alert(files.map(x => x.fileUrl).join("\n"))}>
@@ -21,4 +21,4 @@ const UploadImage = () => (
   </UploadButton>
 );
 
-export default UploadImage;
+export default ImageField;
