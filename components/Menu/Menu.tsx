@@ -1,6 +1,37 @@
+import Link from 'next/link';
 import './menu.scss';
+import { MdHome } from "react-icons/md";
+import { FaTasks } from "react-icons/fa";
+import { LuPackageSearch } from "react-icons/lu";
 const Menu = () => {
-    return(<div className="menu"></div>)
+    return(<div className="menu">
+        <div className='item'>
+            <span className='title'>Main</span>
+            <Link href={'/Home'} className='listItem'>
+            <MdHome />
+            <span className='listItemTitle'>Dashboard</span>
+            </Link>
+
+            <Link href={'/Profile'} className='listItem'>
+            <MdHome />
+            <span className='listItemTitle'>Profile</span>
+            </Link>
+        </div>
+
+        <div className='item'>
+            <span className='title'>Lists</span>
+            <Link href={'/Packages'} className='listItem'>
+            <LuPackageSearch />
+            <span className='listItemTitle'>Packages</span>
+            </Link>
+
+            <Link href={'/Tasks'} className='listItem'>
+            <FaTasks />
+            <span className='listItemTitle'>Tasks</span>
+            </Link>
+        </div>
+
+    </div>)
 }
 
 export default Menu;
