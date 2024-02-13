@@ -3,6 +3,7 @@ import './menu.scss';
 import { MdHome } from "react-icons/md";
 import { FaTasks } from "react-icons/fa";
 import { LuPackageSearch } from "react-icons/lu";
+import { ImProfile } from "react-icons/im";
 const Menu = () => {
     return(<div className="menu">
         <div className='item'>
@@ -13,7 +14,7 @@ const Menu = () => {
             </Link>
 
             <Link href={'/Profile'} className='listItem'>
-            <MdHome />
+            <ImProfile />
             <span className='listItemTitle'>Profile</span>
             </Link>
         </div>
