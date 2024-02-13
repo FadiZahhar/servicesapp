@@ -1,20 +1,13 @@
-import Navbar from '@/components/Navbar/Navbar';
+import BackEndLayout from '@/components/layouts/BackEndLayout';
 import './home.scss';
-import Menu from '@/components/Menu/Menu';
-import Footer from '@/components/Footer/Footer';
+
 const Home = () => {
-    return(<div className="main">
-    <Navbar />
-<div className="container">
-    <div className="menuContainer">
-        <Menu />
-    </div>
-    <div className="contentContainer">
-    </div>
+    return(
+    <BackEndLayout>
+        <h1>Hi</h1>
+    </BackEndLayout>
     
-</div>
-<Footer/>
-</div>)
+    )
 }
 
 export default Home;

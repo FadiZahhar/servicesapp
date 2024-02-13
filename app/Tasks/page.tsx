@@ -1,3 +1,11 @@
+import BackEndLayout from "@/components/layouts/BackEndLayout";
+
 export default function Tasks() {
-    return (<h1>Taks</h1>);
+    return (
+        <BackEndLayout>
+            <div className="tasks">
+                Tasks
+            </div>
+        </BackEndLayout>    
+    );
 }

@@ -24,6 +24,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from 'react-hook-form';
+import BackEndLayout from "@/components/layouts/BackEndLayout";
 
 type FormData = {
   name: string;
@@ -179,7 +180,7 @@ export default function Profile() {
 
 
   return (
-    <>
+    <BackEndLayout>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
         <h1 className="text-3xl text-center mt-6 font-bold">My Profile</h1>
         <div className="w-full md:w-[50%] mt-6 px-3">
@@ -454,6 +455,6 @@ export default function Profile() {
       <div className="max-w-6xl px-3 mt-6 mx-auto">
         
       </div>
-    </>
+    </BackEndLayout>
   );
 }

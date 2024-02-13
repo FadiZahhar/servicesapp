@@ -4,6 +4,7 @@ import { MdHome } from "react-icons/md";
 import { FaTasks } from "react-icons/fa";
 import { LuPackageSearch } from "react-icons/lu";
 import { ImProfile } from "react-icons/im";
+import { FaUsersCog } from "react-icons/fa";
 const Menu = () => {
     return(<div className="menu">
         <div className='item'>
@@ -29,6 +30,11 @@ const Menu = () => {
             <Link href={'/Tasks'} className='listItem'>
             <FaTasks />
             <span className='listItemTitle'>Tasks</span>
+            </Link>
+
+            <Link href={'/Users'} className='listItem'>
+            <FaUsersCog />
+            <span className='listItemTitle'>Users</span>
             </Link>
         </div>
 

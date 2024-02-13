@@ -9,8 +9,7 @@ import logo from "@/assets/logo-blue.png";
 const Navbar = () => {
     return(<div className='navbar'>
         <div className='logo'>
-            <img src="logo.svg" alt="" />
-            <span>Pro-Solutions.net</span>
+            &nbsp;
         </div>
         <div className='icons'>
         <IoSearchSharp className='icons' />

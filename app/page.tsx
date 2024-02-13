@@ -1,4 +1,5 @@
 "use client"
+import FrontEndLayout from "@/components/layouts/FrontEndLayout";
 import About from "@/components/About";
 import Clients from "@/components/Clients";
 import Contact from "@/components/Contact";
@@ -17,7 +18,7 @@ import { useEffect } from "react";
 export default function Home() {
 
   return (
-    <>
+    <FrontEndLayout>
 
     <main>
     <Hero />
@@ -41,6 +42,6 @@ export default function Home() {
   </div>
 </div>
 </footer>
-  </>
+  </FrontEndLayout>
   );
 }
