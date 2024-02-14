@@ -1,12 +1,16 @@
+"use client"
 import BackEndLayout from '@/components/layouts/BackEndLayout';
 import './home.scss';
+import TopBox from '@/components/TopBox/TopBox';
+import ChartBox from '@/components/chartBox/ChartBox';
+import { chartBoxUser } from '@/lib/data';
 
 const Home = () => {
     return(
     <BackEndLayout>
         <div className='home'>
-            <div className='box box1'>Box1</div>
-            <div className='box box2'>Box2</div>
+            <div className='box box1'><TopBox /></div>
+            <div className='box box2'> <ChartBox {...chartBoxUser} /></div>
             <div className='box box3'>Box3</div>
             <div className='box box4'>Box4</div>
             <div className='box box5'>Box5</div>
