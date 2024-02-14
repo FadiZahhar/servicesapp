@@ -1,0 +1,76 @@
+header {
+  color: #fff;
+  display: flex;
+  padding: 1.4rem 3rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0px;
+  .show-modal {
+    display: none;
+  }
+
+  button {
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0 10px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: 0.5s;
+    color: #fff;
+    background: #106eea;
+  }
+
+  ul {
+    margin: 0px;
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    li {
+      font-weight: 500;
+      color: initial;
+      display: inline-block;
+      &:hover {
+        transition: 0.2s;
+        cursor: pointer;
+        color: blue;
+      }
+    }
+  }
+}
+
+.mobil-nav {
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    color: initial;
+    padding: 1rem;
+    &:hover {
+      transition: 0.2s;
+      cursor: pointer;
+      color: blue;
+    }
+  }
+}
+
+
+
+// screen
+
+$medium: 900px;
+
+@media screen and (max-width: $medium) {
+  header {
+    nav {
+      display: none;
+    }
+    .show-modal {
+      display: block;
+    }
+    .btn-login{
+      display: none;
+    }
+  }
+}
