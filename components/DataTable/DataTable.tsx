@@ -3,7 +3,7 @@ import {
     GridColDef,
     GridToolbar,
   } from "@mui/x-data-grid";
-  import "./dataTable.scss";
+  import "./datatable.scss";
 import Link from "next/link";
 import { GrView } from "react-icons/gr";
 import { RiDeleteBin5Line } from "react-icons/ri";
