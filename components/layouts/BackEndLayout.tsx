@@ -2,7 +2,7 @@
 import Navbar from "../Navbar/Navbar";
 import Menu from '@/components/Menu/Menu';
 import Footer from '@/components/Footer/Footer';
-import "@/app/globals.scss";
+import '@/app/styles/globals.scss';
 
 
 
