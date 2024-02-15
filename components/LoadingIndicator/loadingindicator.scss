@@ -1,0 +1,12 @@
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px; /* Match the height of the TinyMCE editor for alignment */
+  }
+  
+  .loading-text {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  

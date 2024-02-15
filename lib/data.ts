@@ -1,6 +1,7 @@
 const paymentDetails = ['OMT','BOB','WISH'];
+const taskStatusDetails = ['OMT','BOB','WISH'];
 
-export {paymentDetails};
+export {paymentDetails, taskStatusDetails};
 
 export const userRows = [
     {
