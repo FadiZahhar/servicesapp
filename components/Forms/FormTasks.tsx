@@ -13,6 +13,8 @@ import Select from '../Fields/Select';
 import { taskStatusDetails } from '@/lib/data';
 import TimeField from '../Fields/TimeField';
 import TimeEstimated from '../Fields/TimeEstimated/TimeEstimated';
+import DateField from '../Fields/DateField';
+import SubmitButton from '../Fields/SubmitButton';
 
 type Inputs = z.infer<typeof taskSchema>
 export default function FormTasks() {
@@ -87,13 +89,14 @@ export default function FormTasks() {
 
 
 
-            <HtmlField 
+            <Input
                 id="taskDescription"
+                type="textarea"
                 label="Task Description"
                 register={register}
-                error={errors.taskName?.message}
+                error={errors.taskDescription?.message}
                 value={content} 
-                onChange={handleEditorChange} />
+                />
 
             <Select 
             id="taskStatus"
@@ -112,7 +115,55 @@ export default function FormTasks() {
             error={errors.timeEstimated?.message}
             onChange={handleTimeChange} />
 
-           <button type="submit">Submint</button>
+            <TimeEstimated 
+            id="timeConsumed"
+            label="Time Consumed"
+            register={register}
+            error={errors.timeConsumed?.message}
+            onChange={handleTimeChange} />
+
+            <DateField 
+             id="startDate"
+             label="Start Date"
+             register={register}
+             error={errors.startDate?.message}
+             />
+
+            <DateField 
+             id="endDate"
+             label="End Date"
+             register={register}
+             error={errors.endDate?.message}
+             />
+
+
+                <HtmlField 
+                id="taskNotes"
+                label="Task Notes"
+                register={register}
+                error={errors.taskNotes?.message}
+                value={content} 
+                onChange={handleEditorChange} />
+
+<Input
+              id="createdAt"
+              label="createdAt"
+              type="text"
+              register={register}
+              error={errors.createdAt?.message}
+            />
+
+
+<Input
+              id="updatedAt"
+              label="updatedAt"
+              type="text"
+              register={register}
+              error={errors.packageId?.message}
+            />
+
+
+           <SubmitButton />
           
            </form>
 

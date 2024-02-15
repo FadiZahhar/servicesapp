@@ -96,7 +96,7 @@ export default function FormPackage() {
             <ImageField />
 
             {/*pickupAt:z.date() I will handle this later since I need to create a unique calendar component to handle date time picker */}
-            <DateField />
+
 
             {/*notes:z.string()*/}
             <Input
