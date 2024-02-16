@@ -25,7 +25,7 @@ function TimeCounter() {
       <p>{isRunning ? 'Running' : 'Not running'}</p>
       <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
-      <button onClick={reset}>Reset</button>
+      <button onClick={(event) => reset()}>Reset</button>
     </div>
   );
 }

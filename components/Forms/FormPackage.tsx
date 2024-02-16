@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { motion } from 'framer-motion'
 
 import { z } from 'zod'
 import { packageSchema } from '@/lib/packageschema';
@@ -9,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { paymentDetails } from '@/lib/data'
-import axios from 'axios'
+//import axios from 'axios'
 import Input from '../Fields/Input';
 import Select from '../Fields/Select';
 import DateField from '../Fields/DateField';
@@ -97,7 +96,7 @@ export default function FormPackage() {
             <ImageField />
 
             {/*pickupAt:z.date() I will handle this later since I need to create a unique calendar component to handle date time picker */}
-            <DateField />
+
 
             {/*notes:z.string()*/}
             <Input

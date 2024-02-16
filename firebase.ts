@@ -17,12 +17,10 @@ const firebaseConfig = {
   };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
-export const db = getFirestore()
+//initializeApp(firebaseConfig);
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 // Initialize Firebase Storage
-const storage = getStorage(app);
-export default app;
-export { storage };
+export const storage = getStorage();
+export const db = getFirestore();

@@ -1,3 +1,12 @@
+# use Docker to run the project
+
+you may follow the following guid [using docker](https://www.youtube.com/watch?v=DJ6vHFVLwyk)
+
+1. install docker desktop
+1. at the root of the project for the first time type make build
+1. each time you want to  start the project after you build the docker you can write make up instead of make build
+1. to stop docker you may type make stop
+
 # Introduction to the open source project
 
 [![services app](https://videoapi-muybridge.vimeocdn.com/animated-thumbnails/image/f7aa6e48-9ab8-4515-a1a4-cc2133743182.gif?ClientID=vimeo-core-prod&Date=1706116148&Signature=3104f414d60e967b711c75dcaacee910fc00552c)](https://vimeo.com/906047438)

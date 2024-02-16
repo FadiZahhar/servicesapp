@@ -36,6 +36,11 @@ const Menu = () => {
             <FaUsersCog />
             <span className='listItemTitle'>Users</span>
             </Link>
+
+            <Link href={'/Demos'} className='listItem'>
+            <FaUsersCog />
+            <span className='listItemTitle'>Forms Demo</span>
+            </Link>
         </div>
 
     </div>)

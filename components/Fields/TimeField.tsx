@@ -8,7 +8,19 @@ function TimeField() {
 
   return (
     <div>
-      <TimePicker onChange={onChange} value={value} />
+      <TimePicker
+  onChange={(newValue: any) => {
+    // Convert newValue to string or handle null/undefined values
+    if (newValue === null) {
+      onChange(''); // or however you wish to handle null values
+    } else {
+      // Assuming newValue can be directly used or converted to string
+      onChange(newValue.toString());
+    }
+  }}
+  value={value}
+/>
+
     </div>
   );
 }

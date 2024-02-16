@@ -18,7 +18,7 @@ a {
   color: $main-color;
 }
 
-.container {
+.maincontainer {
   display: flex;
 }
 
@@ -35,4 +35,11 @@ a {
 .contentContainer {
   padding: 5px 20px;
   width: 100%;
+}
+
+.react-calendar button {
+  color:black;
+}
+.error{
+  color:#fff;
 }
