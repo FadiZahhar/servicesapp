@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import FrontEndLayout from "@/components/layouts/FrontEndLayout";
 import About from "@/components/About";
 //import Clients from "@/components/Clients";
@@ -16,32 +16,32 @@ import Services from "@/components/Services";
 //import { useEffect } from "react";
 
 export default function Home() {
-
   return (
     <FrontEndLayout>
-
-    <main>
-    <Hero />
-
-<About />
-
-<Featured />
-
-<Services />
-<Pricing />
-<FAQ />
-<Contact />
-</main>
-<footer id="footer">
-<div className="container py-4">
-  <div className="copyright">
-    &copy; Copyright <strong><span>Pro-Solutions</span></strong>. All Rights Reserved
-  </div>
-  <div className="credits">
-    Designed by <a href="https://pro-solutions.net/">Pro-solutions.net</a>
-  </div>
-</div>
-</footer>
-  </FrontEndLayout>
+      <main>
+        <Hero />
+        <About />
+        <Featured />
+        <Services />
+        <Pricing />
+        <FAQ />
+        <Contact />
+      </main>
+      <footer id="footer">
+        <div className="container py-4">
+          <div className="copyright">
+            &copy; Copyright{" "}
+            <strong>
+              <span>Pro-Solutions</span>
+            </strong>
+            . All Rights Reserved
+          </div>
+          <div className="credits">
+            Designed by{" "}
+            <a href="https://pro-solutions.net/">Pro-solutions.net</a>
+          </div>
+        </div>
+      </footer>
+    </FrontEndLayout>
   );
 }
