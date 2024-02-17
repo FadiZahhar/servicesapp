@@ -5,13 +5,20 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-function CalednarField() {
+function CalednarField({id,label,register,error}:any) {
   const [value, onChange] = useState<Value>(new Date());
 
   return (
-    <div>
-      <Calendar onChange={onChange} value={value} />
-    </div>
+    <>
+       <p className="text-lg mt-6 font-semibold">{label}</p>
+      <Calendar onChange={onChange} value={value} 
+      />
+      {error && (
+            <p className='error'>
+              {error}
+            </p>
+          )}
+    </>
   );
 }
 

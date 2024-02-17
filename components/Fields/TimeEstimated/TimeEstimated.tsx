@@ -53,14 +53,6 @@ const TimeEstimated: React.FC<TimeEstimatedProps> = ({ onChange,id,label,registe
         />
       </div>
     </div>
-    <input
-            type="text"
-            id={id}
-            {...register(id)}
-            autoComplete={id}
-            className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out focus:bg-red-200`}
-            defaultValue={`${hours} hours and ${minutes} minutes`}
-          />
           {error && (
             <p className='error'>
               {error}

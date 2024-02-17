@@ -19,7 +19,7 @@ interface HtmlFieldProps {
        {isLoading && <LoadingIndicator />}
        <p className="text-lg mt-6 font-semibold">{label}</p>
       <Editor
-        initialValue={value}
+        initialValue={''}
         id={id}
         {...register(id)}
         apiKey='a0xoljmaxvsnab127qfwn6o68ibhvyplkti81n5ksb8jg141'

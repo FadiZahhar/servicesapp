@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import Input from './Input';
 
 interface DateFieldProps {
   id:string;
@@ -20,11 +21,16 @@ const  DateField:FC<DateFieldProps> = ({id,label,register,error}) => {
     <>
     <p className="text-lg mt-6 font-semibold">{label}</p>
     <DatePicker onChange={onChange} value={value} 
-    id={id}
-    {...register(id)}
     className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out focus:bg-red-200`}
     />
-    {error && (
+   <input
+   type="text"
+               id={id}
+               {...register(id)}
+   value={value}
+            className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out focus:bg-red-200`}
+          />
+          {error && (
             <p className='error'>
               {error}
             </p>
