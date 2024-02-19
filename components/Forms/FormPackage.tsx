@@ -2,9 +2,9 @@
 
 import { useState, useRef } from 'react'
 
-import { z } from 'zod'
+// import { z } from 'zod'
 import { packageSchema } from '@/lib/packageschema';
-import { zodResolver } from '@hookform/resolvers/zod'
+// import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { paymentDetails } from '@/lib/data'
@@ -14,40 +14,68 @@ import Select from '../Fields/Select';
 import DateField from '../Fields/DateField';
 import ImageField from '../Fields/ImageField';
 
-type Inputs = z.infer<typeof packageSchema>
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCZRmrAhdBhHef9zw_tXQc4dF1sy6gRy2I",
+  authDomain: "serviceapp-247dc.firebaseapp.com",
+  projectId: "serviceapp-247dc",
+  storageBucket: "serviceapp-247dc.appspot.com",
+  messagingSenderId: "667935358920",
+  appId: "1:667935358920:web:ddda1663d2d9de94f70afd",
+  measurementId: "G-TSMFH18D2V"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+
+// type Inputs = z.infer<typeof packageSchema>;
+type Inputs = {
+  packageName: string;
+  description: string;
+  price: string | number; // Allow the "price" field to be either a string or a number
+  paymentMethod: string;
+  // ... other fields
+};
+
+
 export default function FormPackage() {
-    const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-    const submitForm = () => {
-        if (formRef.current) {
-          formRef.current.preventDefault();
-          formRef.current.submit();
-        }
-      };
-    
-      const {
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        trigger,
-        formState: { errors }
-      } = useForm<Inputs>({
-        resolver: zodResolver(packageSchema)
-      })
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>({
+    // resolver: zodResolver(packageSchema),
+  });
 
-      const processForm: SubmitHandler<Inputs> = data => {
-        console.log(data);
-      }
+  const submitForm: SubmitHandler<Inputs> = async (data) => {
+    try {
+      // Convert the 'price' field to a number
+      const convertedData = { ...data, price: Number(data.price) };
 
-      type FieldName = keyof Inputs
+      const db = getFirestore();
+      const docRef = await addDoc(collection(db, 'packages'), convertedData);
+
+      console.log('Document written with ID:', docRef.id);
+      console.log('DATA:', convertedData);
+
+      reset();
+    } catch (error) {
+      console.error('Error adding document: ', error);
+    }
+  };
+
+  const processForm: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
 
   const next = async () => {
-        await handleSubmit(processForm)();
+    await handleSubmit(processForm)();
 
-     // Scroll to the top of the page
-     window.scrollTo(0, 0);
-  }
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
+  };
+
+
 
     return(
 
@@ -55,7 +83,7 @@ export default function FormPackage() {
         <h1 className="text-3xl text-center mt-6 font-bold">Create a Package</h1>
         <div className="w-full md:w-[50%] mt-6 px-3">
           
-          <form ref={formRef} onSubmit={handleSubmit(processForm)}>
+          <form ref={formRef} onSubmit={handleSubmit(submitForm)}>
           {/* packageName */}
           <Input
               id="packageName"
@@ -81,8 +109,8 @@ export default function FormPackage() {
               label="Price"
               type="number"
               register={register}
-              error={errors.price?.message}
-            />
+              error={(errors.price?.message && console.log(errors.price.message)) || undefined}
+              />
 
             {/*paymentMethod type select*/}
             <Select
@@ -104,10 +132,10 @@ export default function FormPackage() {
               label="Notes"
               type="textarea"
               register={register}
-              error={errors.notes?.message}
+              // error={errors.notes?.message}
             />
 
-            <button type="submit">Submint</button>
+            <button type="submit">Submit</button>
           </form>
 
         </div>
