@@ -34,9 +34,8 @@ const firebaseApp = initializeApp(firebaseConfig);
 type Inputs = {
   packageName: string;
   description: string;
-  price: string | number; // Allow the "price" field to be either a string or a number
+  price: string | number;
   paymentMethod: string;
-  // ... other fields
 };
 
 
