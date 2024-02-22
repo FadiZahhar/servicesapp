@@ -1,10 +1,10 @@
-import FormTasks from "@/components/Forms/FormTasks";
+import FormSubTasks from "@/components/Forms/FormSubTasks";
 import BackEndLayout from "@/components/layouts/BackEndLayout"
 
 const Demos = () => {
     return(
         <BackEndLayout> 
-        <FormTasks />
+        <FormSubTasks />
         </BackEndLayout>
     )
 }

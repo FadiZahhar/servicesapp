@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 
 import { z } from "zod";
-import { taskSchema } from "@/lib/tasksschema";
+import { subTaskSchema } from "@/lib/subtasksschema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import FormTitle from "../Fields/FormTitle";
@@ -41,7 +41,7 @@ import TimeRangeField from "../Fields/TimeRangeField";
 import HourField from "../Fields/HourField";
 import MinuteField from "../Fields/MinuteField";
 
-type Inputs = z.infer<typeof taskSchema>;
+type Inputs = z.infer<typeof subTaskSchema>;
 export default function FormTasks() {
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -64,7 +64,7 @@ export default function FormTasks() {
     setValue,
     formState: { errors },
   } = useForm<Inputs>({
-    resolver: zodResolver(taskSchema),
+    resolver: zodResolver(subTaskSchema),
   });
 
   const processForm: SubmitHandler<Inputs> = async (data) => {
@@ -109,11 +109,11 @@ export default function FormTasks() {
       <div className="w-full md:w-[50%] mt-6 px-3">
         <form ref={formRef} onSubmit={handleSubmit(processForm)}>
           <Input
-            id="packageId"
-            label="packageId"
+            id="taskId"
+            label="Task Id"
             type="text"
             register={register}
-            error={errors.packageId?.message}
+            error={errors.taskId?.message}
           />
 
           <Input
@@ -121,7 +121,7 @@ export default function FormTasks() {
             label="SubTask Name"
             type="text"
             register={register}
-            error={errors.taskName?.message}
+            error={errors.subtaskName?.message}
           />
 
           <Input
@@ -129,7 +129,7 @@ export default function FormTasks() {
             type="textarea"
             label="SubTask Description"
             register={register}
-            error={errors.taskDescription?.message}
+            error={errors.subtaskDescription?.message}
             value={content}
           />
 
@@ -138,7 +138,7 @@ export default function FormTasks() {
             label="SubTask Curent Status"
             register={register}
             options={taskStatusDetails}
-            error={errors.taskStatus?.message}
+            error={errors.subtaskStatus?.message}
           />
 
           <HourField
@@ -192,7 +192,7 @@ export default function FormTasks() {
             label="SubTask Notes"
             type="textarea"
             register={register}
-            error={errors.taskNotes?.message}
+            error={errors.subtaskNotes?.message}
           />
 
           <SubmitButton />
