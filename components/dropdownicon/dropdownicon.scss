@@ -1,0 +1,44 @@
+
+ul {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid black;
+  top: 2.5rem;
+
+}
+ul li {
+  float: left;
+  list-style: none;
+  position: relative; /* we can add absolute position in subcategories */
+  padding: 6px 10px;
+  justify-content: center;
+}
+ul li a {
+  display: block;
+  font-family: arial;
+  color: white;
+  font-size: 14px;
+  padding: 22px 14px;
+  text-decoration: none;
+}
+ul li ul {
+  display: none;
+  position: absolute;
+  background-color: black;
+  padding: 5px; 
+  border-radius: 0px 0px 4px 4px;
+}
+ul li:hover ul {
+  /* This means when li is hovered, we want the unordered list inside list item to do something. */
+  display: block;
+}
+ul li ul li {
+  width: 130px; /* increases width so that all text can be fit */
+  border-radius: 4px;
+}
+ul li ul li a:hover {
+  background-color: #add8e6;
+}
