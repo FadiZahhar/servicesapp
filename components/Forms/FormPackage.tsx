@@ -1,53 +1,79 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { firebaseConfig } from '../../firebaseConfig';
 
-import { z } from 'zod'
-import { packageSchema } from '@/lib/packageschema';
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
-
-import { paymentDetails } from '@/lib/data'
-//import axios from 'axios'
+import { useState, useRef } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Input from '../Fields/Input';
 import Select from '../Fields/Select';
-import DateField from '../Fields/DateField';
 import ImageField from '../Fields/ImageField';
+import { paymentDetails } from '@/lib/data';
+import { toast } from 'react-toastify';
 
-type Inputs = z.infer<typeof packageSchema>
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+// type Inputs = z.infer<typeof packageSchema>;
+type Inputs = {
+  packageName: string;
+  description: string;
+  price: string | number;
+  paymentMethod: string;
+};
+
+
 export default function FormPackage() {
-    const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-    const submitForm = () => {
-        if (formRef.current) {
-          formRef.current.preventDefault();
-          formRef.current.submit();
-        }
-      };
-    
-      const {
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        trigger,
-        formState: { errors }
-      } = useForm<Inputs>({
-        resolver: zodResolver(packageSchema)
-      })
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>({
+    // resolver: zodResolver(packageSchema),
+});
+  
 
-      const processForm: SubmitHandler<Inputs> = data => {
-        console.log(data);
-      }
+const submitForm: SubmitHandler<Inputs> = async (data) => {
+  try {
+    if (!data.packageName || !data.description || !data.price || !data.paymentMethod) {
+      toast.error('Please fill in all required fields.');
+      return;
+    }
 
-      type FieldName = keyof Inputs
+    const minPrice = 200;
+    if (Number(data.price) < minPrice) {
+      toast.error(`Minimum price is ${minPrice}.`);
+      return;
+    }
+
+    console.log("Form data before conversion:", data);
+
+    const convertedData = { ...data, price: Number(data.price) };
+    console.log("Form data after conversion:", convertedData);
+
+    const db = getFirestore();
+    const docRef = await addDoc(collection(db, 'packages'), convertedData);
+
+    console.log('Document written with ID:', docRef.id);
+    console.log('DATA:', convertedData);
+
+    reset();
+  } catch (error) {
+    console.error('Error adding document: ', error);
+  }
+};
+
+  const processForm: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
 
   const next = async () => {
-        await handleSubmit(processForm)();
+    await handleSubmit(processForm)();
 
-     // Scroll to the top of the page
-     window.scrollTo(0, 0);
-  }
+    window.scrollTo(0, 0);
+  };
+
+
 
     return(
 
@@ -55,7 +81,7 @@ export default function FormPackage() {
         <h1 className="text-3xl text-center mt-6 font-bold">Create a Package</h1>
         <div className="w-full md:w-[50%] mt-6 px-3">
           
-          <form ref={formRef} onSubmit={handleSubmit(processForm)}>
+          <form ref={formRef} onSubmit={handleSubmit(submitForm)}>
           {/* packageName */}
           <Input
               id="packageName"
@@ -104,10 +130,10 @@ export default function FormPackage() {
               label="Notes"
               type="textarea"
               register={register}
-              error={errors.notes?.message}
+              // error={errors.notes?.message}
             />
 
-            <button type="submit">Submint</button>
+            <button type="submit">Submit</button>
           </form>
 
         </div>
