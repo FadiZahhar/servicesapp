@@ -1,34 +1,20 @@
 'use client'
 
-import { useState, useRef } from 'react'
-
-// import { z } from 'zod'
-import { packageSchema } from '@/lib/packageschema';
-// import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
-
-import { paymentDetails } from '@/lib/data'
-//import axios from 'axios'
-import Input from '../Fields/Input';
-import Select from '../Fields/Select';
-import DateField from '../Fields/DateField';
-import ImageField from '../Fields/ImageField';
-
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { firebaseConfig } from '../../firebaseConfig';
 
+import { useState, useRef } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import Input from '../Fields/Input';
+import Select from '../Fields/Select';
+import ImageField from '../Fields/ImageField';
+import { paymentDetails } from '@/lib/data';
+import { toast } from 'react-toastify';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCZRmrAhdBhHef9zw_tXQc4dF1sy6gRy2I",
-  authDomain: "serviceapp-247dc.firebaseapp.com",
-  projectId: "serviceapp-247dc",
-  storageBucket: "serviceapp-247dc.appspot.com",
-  messagingSenderId: "667935358920",
-  appId: "1:667935358920:web:ddda1663d2d9de94f70afd",
-  measurementId: "G-TSMFH18D2V"
-};
+const app = initializeApp(firebaseConfig);
 
-const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // type Inputs = z.infer<typeof packageSchema>;
 type Inputs = {
@@ -44,24 +30,38 @@ export default function FormPackage() {
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>({
     // resolver: zodResolver(packageSchema),
-  });
+});
+  
 
-  const submitForm: SubmitHandler<Inputs> = async (data) => {
-    try {
-      // Convert the 'price' field to a number
-      const convertedData = { ...data, price: Number(data.price) };
-
-      const db = getFirestore();
-      const docRef = await addDoc(collection(db, 'packages'), convertedData);
-
-      console.log('Document written with ID:', docRef.id);
-      console.log('DATA:', convertedData);
-
-      reset();
-    } catch (error) {
-      console.error('Error adding document: ', error);
+const submitForm: SubmitHandler<Inputs> = async (data) => {
+  try {
+    if (!data.packageName || !data.description || !data.price || !data.paymentMethod) {
+      toast.error('Please fill in all required fields.');
+      return;
     }
-  };
+
+    const minPrice = 200;
+    if (Number(data.price) < minPrice) {
+      toast.error(`Minimum price is ${minPrice}.`);
+      return;
+    }
+
+    console.log("Form data before conversion:", data);
+
+    const convertedData = { ...data, price: Number(data.price) };
+    console.log("Form data after conversion:", convertedData);
+
+    const db = getFirestore();
+    const docRef = await addDoc(collection(db, 'packages'), convertedData);
+
+    console.log('Document written with ID:', docRef.id);
+    console.log('DATA:', convertedData);
+
+    reset();
+  } catch (error) {
+    console.error('Error adding document: ', error);
+  }
+};
 
   const processForm: SubmitHandler<Inputs> = (data) => {
     console.log(data);
@@ -70,7 +70,6 @@ export default function FormPackage() {
   const next = async () => {
     await handleSubmit(processForm)();
 
-    // Scroll to the top of the page
     window.scrollTo(0, 0);
   };
 
@@ -108,8 +107,8 @@ export default function FormPackage() {
               label="Price"
               type="number"
               register={register}
-              error={(errors.price?.message && console.log(errors.price.message)) || undefined}
-              />
+              error={errors.price?.message}
+            />
 
             {/*paymentMethod type select*/}
             <Select

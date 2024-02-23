@@ -22,3 +22,6 @@ export const db = getFirestore(app);
 
 // Initialize Firebase Storage with the Firebase app instance
 export const storage = getStorage(app);
+
+
+
