@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-export default function Input({id,label,type,register,error}:any){
+export default function Input({id,label,type,register,error, value}:any){
 
 
     useEffect(()=>{
@@ -14,6 +14,7 @@ export default function Input({id,label,type,register,error}:any){
         <input
             type={type}
             id={id}
+            value={value}
             {...register(id)}
             className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out focus:bg-red-200`}
           />
@@ -30,6 +31,7 @@ export default function Input({id,label,type,register,error}:any){
          <textarea
              type={type}
              id={id}
+             value={value}
              {...register(id)}
              autoComplete={id}
              className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out focus:bg-red-200`}
@@ -48,6 +50,7 @@ export default function Input({id,label,type,register,error}:any){
         <input
             type={type}
             id={id}
+            value={value}
             {...register(id)}
             autoComplete={id}
             className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out focus:bg-red-200`}
