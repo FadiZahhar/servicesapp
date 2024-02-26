@@ -39,40 +39,12 @@ import { write } from "fs";
 
 type Inputs = z.infer<typeof subTaskSchema>;
 export default function EditFormSubTasks(info: any) {
+//for example
   const docId = "kWynOxsSf3p43mOwFY5l";
+  
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const [content, setContent] = useState<string>("");
-  const [search, setSearch] = useState("pamrara ");
-  const [dataFir, setData] = useState(); // Declare a state variable...
-
-
-
-  // to run function 
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  // for fetch Data from firebeas 
-
-  const fetchData = async () => {
-    const docRef = doc(db, "subtasks", docId);
-
-    try {
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        console.log(docSnap.data());
-      } else {
-        console.log("Document does not exist");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
-
 
   const {
     register,
@@ -113,7 +85,6 @@ export default function EditFormSubTasks(info: any) {
     }
   };
 
-
   type FieldName = keyof Inputs;
 
   const next = async () => {
@@ -123,6 +94,43 @@ export default function EditFormSubTasks(info: any) {
     window.scrollTo(0, 0);
   };
 
+  // for fetch Data from firebeas
+
+  const fetchData = async () => {
+    const docRef = doc(db, "subtasks", docId);
+
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setValue("taskId", docSnap.data().taskId);
+        setValue("subtaskName", docSnap.data().subtaskName);
+        setValue("subtaskDescription", docSnap.data().subtaskDescription);
+        setValue("subtaskStatus", docSnap.data().subtaskStatus);
+        setValue("timeEstimatedInHours", docSnap.data().timeEstimatedInHours);
+        setValue(
+          "timeEstimatedInMinutes",
+          docSnap.data().timeEstimatedInMinutes
+        );
+        setValue("timeConsumedInHours", docSnap.data().timeConsumedInHours);
+        setValue("timeConsumedInMinutes", docSnap.data().timeConsumedInMinutes);
+        setValue("startDate", docSnap.data().startDate);
+        setValue("endDate", docSnap.data().endDate);
+        setValue("subtaskNotes", docSnap.data().subtaskNotes);
+
+        console.log(docSnap.data());
+      } else {
+        console.log("Document does not exist");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // to run function
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
