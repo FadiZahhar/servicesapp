@@ -1,3 +1,5 @@
+"use client";
+
 import "./dropdownicon.scss";
 import React, { useRef, useState } from "react";
 import {

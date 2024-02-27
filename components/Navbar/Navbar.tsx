@@ -35,7 +35,7 @@ const Navbar = () => {
             notification={3}
           />
         </div>
-
+        </div>
 
         <div className="user">
           <img src={logo.src} alt="" />
@@ -49,7 +49,7 @@ const Navbar = () => {
         <div className="notification">
           <Dropdownicon
             icon={<IoMdSettings className="icons" />}
-            list={[]}
+            list={["SDDS","SDFFSD"]}
             notification={false}
           />
         </div>
