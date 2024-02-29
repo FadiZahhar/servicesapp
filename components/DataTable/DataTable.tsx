@@ -5,8 +5,19 @@ import {
   } from "@mui/x-data-grid";
   import "./datatable.scss";
 import Link from "next/link";
-import { GrView } from "react-icons/gr";
+import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import {
+  collection,
+  doc,
+  getDocs,
+  Timestamp,
+  setDoc,
+  addDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import { useState, useRef } from "react";
   // import { useMutation, useQueryClient } from "@tanstack/react-query";
   
   type Props = {
@@ -31,7 +42,17 @@ import { RiDeleteBin5Line } from "react-icons/ri";
     // //   }
     // // });
   
-    const handleDelete = (id: number) => {
+    
+  
+    const handleDelete = async (id :any, slug:any) => {
+      const DocRef = doc(db, slug, id)
+      console.log(DocRef);
+      try {
+          await deleteDoc(DocRef)
+          console.log('task deleted');
+      } catch (err) {
+          alert(err)
+      }
       //delete the item
       // mutation.mutate(id)
     };
@@ -44,11 +65,14 @@ import { RiDeleteBin5Line } from "react-icons/ri";
         return (
           <div className="action">
             <Link href={`/${props.slug}/${params.row.id}`}>
-              <GrView/>
+              <GrEdit/>
             </Link>
-            <div className="delete" onClick={() => handleDelete(params.row.id)}>
+            {/* <Link href={`/${props.slug}/${params.row.id}`}>
+            <RiDeleteBin5Line />
+            </Link> */}
+            <button className="delete" onClick={() => handleDelete(params.row.id, props.slug)}>
               <RiDeleteBin5Line />
-            </div>
+            </button>
           </div>
         );
       },
