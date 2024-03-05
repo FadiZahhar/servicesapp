@@ -1,24 +1,21 @@
-import { Uploader } from "uploader"; // Installed by "react-uploader".
-import { UploadButton } from "react-uploader";
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-// Initialize once (at the start of your app).
-const uploader = Uploader({
-  apiKey: "free" // Get production API keys from Bytescale
-});
+interface ImageFieldProps {
+  setImageFile: Dispatch<SetStateAction<File | null>>;
+}
 
-// Configuration options: https://www.bytescale.com/docs/upload-widget/frameworks/react#customize
-const options = { multi: true };
+const ImageField: React.FC<ImageFieldProps> = ({ setImageFile }) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setImageFile(file);
+  };
 
-const ImageField = () => (
-  <UploadButton uploader={uploader}
-                options={options}
-                onComplete={files => alert(files.map(x => x.fileUrl).join("\n"))}>
-    {({onClick}) =>
-      <button onClick={onClick}>
-        Upload a file...
-      </button>
-    }
-  </UploadButton>
-);
+  return (
+    <div>
+      <label htmlFor="image">Upload Image:</label>
+      <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
+    </div>
+  );
+};
 
 export default ImageField;
