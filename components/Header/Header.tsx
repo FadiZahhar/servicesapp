@@ -1,94 +1,68 @@
-"use client";
-import app, { db } from "../../firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import imageSrc from "../../assets/logo-blue.png";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { TfiAlignJustify, TfiClose } from "react-icons/tfi";
+
+"use client"
+import imageSrc from "@/assets/logo-blue.png";
+import Image from "next/image";
+
 import "./header.scss";
+import Link from "next/link";
 
-export default function Header() {
-  const router = useRouter();
-  const [pageState, setPageState] = useState("Sign in");
-  const auth = getAuth(app);
+import { useState, useEffect } from 'react';
+
+
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Close the menu when clicking outside of it
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setPageState("Profile");
-      } else {
-        setPageState("Signin");
+    const handleOutsideClick = (event:any) => {
+      if (!event.target.closest('.headerHome') && isMenuOpen) {
+        setIsMenuOpen(false);
       }
-    });
-  }, [auth]);
+    };
 
-  const [showModal, setShowModal] = useState(false);
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [isMenuOpen]);
 
   return (
-    <div>
-      <header className="headerHome">
-        {/* logo */}
-        <div>
-          <img
-            src={imageSrc.src}
-            alt="logo"
-            className="cursor-pointer"
-            width={120}
-            height={120}
-            onClick={() => router.push("/")}
-          />
+    <>
+      <header className="container">
+        <div className="logo">
+          <Link href="/">
+              <Image
+                src={imageSrc}
+                alt="logo"
+                className="cursor-pointer"
+                width={120}
+                height={120}
+              />
+          </Link>
         </div>
-        <nav>
-          <ul className="">
-            <li onClick={() => router.push("/#hero")}>Home</li>
-            <li onClick={() => router.push("/#about")}>About</li>
-            <li onClick={() => router.push("/#how-we-work")}>How We Work</li>
-            <li onClick={() => router.push("/#our-services")}>Our Services</li>
-            <li onClick={() => router.push("/#our-packages")}>Our Packages</li>
-            <li onClick={() => router.push("/#FAQ")}>FAQ</li>
-            <li onClick={() => router.push("/#contact-us")}>Contact Us</li>
+        <button onClick={toggleMenu} className="burger-menu">
+          {/* Replace span with your icon */}
+          <span>&#9776;</span> {/* This is a simple representation of a burger icon */}
+        </button>
+        <nav className={`menu ${isMenuOpen ? 'open' : ''}`}>
+          <ul>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/#about">About</Link></li>
+            <li><Link href="/#howwework">How We Work</Link></li>
+            <li><Link href="/#ourservices">Our Services</Link></li>
+            <li><Link href="/#ourpackages">Our Packages</Link></li>
+            <li><Link href="/#faq">FAQ</Link></li>
+            <li><Link href="/blog">Blog</Link></li>
+            <li><Link href="/#contactus">Contact Us</Link></li>
           </ul>
         </nav>
-
-        <div>
-          <button className="btn-login" onClick={() => router.push(`/${pageState}`)}>{pageState}</button>
-
-          {!showModal && (
-            <button
-              className="show-modal"
-              onClick={() => {
-                setShowModal(true);
-              }}
-            >
-              {" "}
-              <TfiAlignJustify />{" "}
-            </button>
-          )}
-          {showModal && (
-            <button
-              className="show-modal"
-              onClick={() => {
-                setShowModal(false);
-              }}
-            >
-              {" "}
-              <TfiClose />{" "}
-            </button>
-          )}
-        </div>
       </header>
-
-      {showModal && (
-        <ul className="mobil-nav">
-          <li onClick={() => router.push("/#hero")}>Home</li>
-          <li onClick={() => router.push("/#about")}>About</li>
-          <li onClick={() => router.push("/#how-we-work")}>How We Work</li>
-          <li onClick={() => router.push("/#our-services")}>Our Services</li>
-          <li onClick={() => router.push("/#our-packages")}>Our Packages</li>
-          <li onClick={() => router.push("/#FAQ")}>FAQ</li>
-          <li onClick={() => router.push("/#contact-us")}>Contact Us</li>
-          <li onClick={() => router.push(`/${pageState}`)}>{pageState}</li>
-        </ul>
-      )}
-    </div>
+     
+    </>
   );
-}
+};
+
+export default Header;
+

@@ -1,0 +1,10 @@
+.posts {
+  margin:0 auto;
+}
+
+.posts h1 {
+  font-size: xx-large;
+  color: var(--color-grey-800);
+  text-align: center;
+}
+

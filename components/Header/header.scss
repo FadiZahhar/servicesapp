@@ -1,76 +1,67 @@
 header {
-  color: #fff;
   display: flex;
-  padding: 1.4rem 3rem;
-  align-items: center;
   justify-content: space-between;
-  width: 100%;
-  margin: 0px;
-  .show-modal {
-    display: none;
-  }
+  align-items: center;
+  padding: 0 20px;
+  background-color: #fff;
 
-  button {
-    text-transform: uppercase;
-    font-weight: 500;
-    margin: 0 10px;
-    padding: 6px 14px;
-    border-radius: 4px;
-    transition: 0.5s;
-    color: #fff;
-    background: #106eea;
-  }
-
-  ul {
-    margin: 0px;
-    gap: 20px;
-    display: flex;
-    justify-content: center;
-    li {
-      font-weight: 500;
-      color: initial;
-      display: inline-block;
-      &:hover {
-        transition: 0.2s;
-        cursor: pointer;
-        color: blue;
-      }
-    }
-  }
 }
-
-.mobil-nav {
-  li {
-    display: flex;
-    justify-content: center;
+.logo {
+  flex-grow: 1;
+}
+.burger-menu {
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+}
+nav {
+  display: flex;
+  gap: 20px;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+nav ul li a {
+  text-decoration:none;
+  color:#333;
+  transition: color 0.3s ease;
+  font-size:medium;
+}
+nav ul li a:hover {
+  color: #007bff;
+}
+@media (max-width: 1100px) {
+  .burger-menu {
+    display: block;
+  }
+  nav {
+    position: absolute;
+    top: 60px; /* Adjust based on your header's height */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    flex-direction: column;
     align-items: center;
-    font-weight: 500;
-    color: initial;
-    padding: 1rem;
-    &:hover {
-      transition: 0.2s;
-      cursor: pointer;
-      color: blue;
-    }
+    display: none;
+    z-index:999;
+  }
+  nav.open {
+    display: flex;
+  }
+  nav ul {
+    flex-direction: column;
+  }
+  nav ul li a {
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
   }
 }
 
 
 
-// screen
-
-$medium: 900px;
-
-@media screen and (max-width: $medium) {
-  header {
-    nav {
-      display: none;
-    }
-    .show-modal {
-      display: block;
-    }
-    .btn-login{
-      display: none;
-    }
-  }
-}
