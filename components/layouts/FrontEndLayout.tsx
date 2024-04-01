@@ -58,6 +58,22 @@ export default function FrontEndLayout({
       <body className={inter.className}>
         <Header />
         {children}
+
+        <footer id="footer">
+        <div className="container py-4">
+          <div className="copyright">
+            &copy; Copyright{" "}
+            <strong>
+              <span>Pro-Solutions</span>
+            </strong>
+            . All Rights Reserved
+          </div>
+          <div className="credits">
+            Designed by{" "}
+            <a href="https://pro-solutions.net/">Pro-solutions.net</a>
+          </div>
+        </div>
+      </footer>
       </body>
       <ToastContainer
         position="bottom-center"

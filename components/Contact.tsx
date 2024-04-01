@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaMapMarkerAlt } from "react-icons/fa";

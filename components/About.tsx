@@ -1,3 +1,4 @@
+"use client"
 import mvp1 from '@/assets/img/about/about-mvp.jpg';
 import mvp2 from '@/assets/img/about/how-mvp.jpg';
 import mvp3 from '@/assets/img/about/how-mvp-dev.jpg';
